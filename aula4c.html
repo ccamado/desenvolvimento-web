@@ -372,7 +372,7 @@ function render(){
   }
   document.getElementById('pb4c').style.width=((cur/qs4c.length)*100)+'%';
   const q=qs4c[cur];
-  div.innerHTML=`<div class="question" style="animation:fadeIn .3s ease"><p>❓ ${cur+1}/10 — ${q.q}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="ans(${i},${q.c})">${o}</button>`).join('')}</div><div class="feedback" id="fb4c"></div></div>`;
+  div.innerHTML=`<div class="question" style="animation:fadeIn .3s ease"><p>❓ ${cur+1}/10 — ${escHtml(q.q)}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="ans(${i},${q.c})">${escHtml(o)}</button>`).join('')}</div><div class="feedback" id="fb4c"></div></div>`;
 }
 function ans(i,c){
   const btns=div.querySelectorAll('.opt-btn');

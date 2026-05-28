@@ -201,17 +201,17 @@
 <footer><p>Desenvolvimento WEB · 2º Ano A · Prof. <span>Claudio Amado</span> · 2026</p></footer>
 
 <script>
-const qs2 = [
-  {q:"Qual type você usaria para um campo de Idade?",opts:["text","email","number","password"],c:2},
-  {q:"O type='email' aceita um texto sem o @?",opts:["Sim, aceita qualquer texto","Não, ele valida que existe @","Depende do navegador","Só aceita com .com"],c:1},
-  {q:"O que o type='password' faz com o texto digitado?",opts:["Coloca em maiúsculas","Traduz para outro idioma","Esconde (mostra •••)","Coloriza em vermelho"],c:2},
-  {q:"Para que serve o atributo placeholder?",opts:["Torna o campo obrigatório","Exibe uma dica dentro do campo que some ao digitar","Define a cor do campo","Nomeia o campo"],c:1},
-  {q:"Qual atributo faz o campo ser obrigatório?",opts:["placeholder","mandatory","required","type"],c:2},
-  {q:"Se um campo tem required e o usuário não preenche, o que acontece ao clicar em Enviar?",opts:["O formulário envia normalmente","O campo some da tela","O navegador avisa e não envia","Nada acontece"],c:2},
-  {q:"Qual tipo de input é melhor para capturar um e-mail?",opts:["text","email","url","tel"],c:1},
-  {q:"O placeholder é visível quando o usuário digita algo no campo?",opts:["Sim, sempre aparece","Não, ele some quando o usuário começa a digitar","Só aparece depois de enviar","Aparece em vermelho"],c:1},
-  {q:"Quantos atributos pode ter um único input?",opts:["Apenas 1","Apenas 2","Máximo 3","Vários! (type, placeholder, required, etc.)"],c:3},
-  {q:"O atributo type=number impede que letras sejam digitadas no campo?",opts:["Não, aceita qualquer coisa","Sim, o navegador filtra apenas números","Apenas no celular","Apenas com required"],c:1}
+const q2 = [
+  {q:"Qual valor de TYPE você usaria para um campo de Idade?",opts:["text","email","number","password"],c:2},
+  {q:"O type email aceita um texto digitado sem o símbolo @?",opts:["Sim, aceita qualquer texto","Não, ele exige o símbolo @","Depende do navegador","Só aceita endereços com .com"],c:1},
+  {q:"O que o type password faz com o texto digitado pelo usuário?",opts:["Coloca em maiúsculas","Traduz para outro idioma","Esconde mostrando pontos","Colore em vermelho"],c:2},
+  {q:"Para que serve o atributo placeholder no input?",opts:["Torna o campo obrigatório","Exibe uma dica que some ao digitar","Define a cor do campo","Nomeia o campo"],c:1},
+  {q:"Qual atributo torna o preenchimento de um campo obrigatório?",opts:["placeholder","mandatory","required","type"],c:2},
+  {q:"Se um campo tem required e o usuário deixa em branco, o que acontece ao clicar Enviar?",opts:["O formulário envia normalmente","O campo desaparece","O navegador avisa e bloqueia o envio","Nada acontece"],c:2},
+  {q:"Qual valor de TYPE é o mais adequado para capturar um endereço de e-mail?",opts:["text","email","url","tel"],c:1},
+  {q:"O texto do placeholder continua visível enquanto o usuário digita?",opts:["Sim, sempre aparece","Não, ele desaparece ao começar a digitar","Só aparece após enviar","Aparece em vermelho"],c:1},
+  {q:"Quantos atributos pode ter um único INPUT ao mesmo tempo?",opts:["Apenas 1","Apenas 2","Máximo 3","Vários como type, placeholder e required juntos"],c:3},
+  {q:"O type number impede completamente que letras sejam digitadas?",opts:["Não, aceita qualquer coisa","Sim, o navegador permite apenas números","Apenas em dispositivos móveis","Apenas quando combined com required"],c:1}
 ];
 let cur2=0,pts2=0;
 const div2=document.getElementById('quiz2');
@@ -222,7 +222,7 @@ function render2(){
   }
   document.getElementById('pb2').style.width=((cur2/qs2.length)*100)+'%';
   const q=qs2[cur2];
-  div2.innerHTML=`<div class="question" style="animation:fadeIn .3s ease"><p>❓ ${cur2+1}/10 — ${q.q}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="ans2(${i},${q.c})">${o}</button>`).join('')}</div><div class="feedback" id="fb2"></div></div>`;
+  div2.innerHTML=`<div class="question" style="animation:fadeIn .3s ease"><p>❓ ${cur2+1}/10 — ${escHtml(q.q)}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="ans2(${i},${q.c})">${escHtml(o)}</button>`).join('')}</div><div class="feedback" id="fb2"></div></div>`;
 }
 function ans2(i,c){
   const btns=div2.querySelectorAll('.opt-btn');

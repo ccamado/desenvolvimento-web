@@ -202,8 +202,8 @@ const qs3=[
   {q:"Qual campo permite escolher APENAS UMA opção entre várias?",opts:["checkbox","select","radio","text"],c:2},
   {q:"Qual campo permite marcar VÁRIAS opções ao mesmo tempo?",opts:["radio","select","text","checkbox"],c:3},
   {q:"O que o atributo name igual faz em botões radio?",opts:["Muda a cor deles","Agrupa para que só 1 possa ser marcado","Coloca em negrito","Envia automaticamente"],c:1},
-  {q:"Qual tag cria a lista suspensa (dropdown)?",opts:["<list>","<dropdown>","<select>","<combo>"],c:2},
-  {q:"Qual tag define cada item dentro de um select?",opts:["<item>","<li>","<choice>","<option>"],c:3},
+  {q:"Qual tag HTML cria a lista suspensa (dropdown)?",opts:["tag LIST","tag DROPDOWN","tag SELECT","tag COMBO"],c:2},
+  {q:"Qual tag define cada item dentro de um SELECT?",opts:["tag ITEM","tag LI","tag CHOICE","tag OPTION"],c:3},
   {q:"Se eu quero que o usuário escolha uma cidade de uma lista de 50 cidades, qual campo é melhor?",opts:["50 radio buttons","50 checkboxes","select/option","Nenhum dos anteriores"],c:2},
   {q:"O atributo value no radio/checkbox guarda o quê?",opts:["A cor do botão","A posição na tela","O dado que será enviado ao sistema","O nome do campo"],c:2},
   {q:"Qual a diferença entre radio e checkbox?",opts:["Radio aceita texto; checkbox não","Radio = 1 escolha; checkbox = múltiplas","Radio é maior; checkbox é menor","Não há diferença"],c:1},
@@ -219,7 +219,7 @@ function render3(){
   }
   document.getElementById('pb3').style.width=((cur3/qs3.length)*100)+'%';
   const q=qs3[cur3];
-  div3.innerHTML=`<div class="question" style="animation:fadeIn .3s ease"><p>❓ ${cur3+1}/10 — ${q.q}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="ans3(${i},${q.c})">${o}</button>`).join('')}</div><div class="feedback" id="fb3"></div></div>`;
+  div3.innerHTML=`<div class="question" style="animation:fadeIn .3s ease"><p>❓ ${cur3+1}/10 — ${escHtml(q.q)}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="ans3(${i},${q.c})">${escHtml(o)}</button>`).join('')}</div><div class="feedback" id="fb3"></div></div>`;
 }
 function ans3(i,c){
   const btns=div3.querySelectorAll('.opt-btn');

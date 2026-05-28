@@ -179,19 +179,20 @@
 
 <script>
 const q1 = [
-  {q:"Qual tag agrupa todos os campos de um formulário?",opts:["<input>","<form>","<label>","<button>"],c:1},
-  {q:"Para que serve a tag <label>?",opts:["Enviar o formulário","Pular linha","Dar um nome/título ao campo","Criar botão"],c:2},
-  {q:"O que a tag <br> faz no HTML?",opts:["Cria um botão","Pula uma linha","Cria uma lista","Muda a cor"],c:1},
-  {q:"Qual o type correto para um campo de texto simples?",opts:["email","number","password","text"],c:3},
-  {q:"Quais são as 3 tags principais de um formulário básico?",opts:["<div>, <p>, <span>","<form>, <label>, <input>","<table>, <tr>, <td>","<h1>, <h2>, <h3>"],c:1},
-  {q:"O que significa 'campo = dado'?",opts:["Cada campo tem uma cor diferente","Cada campo coleta uma informação do usuário","Cada campo precisa de JavaScript","Cada campo precisa de CSS"],c:1},
-  {q:"Qual valor do atributo type no button indica que ele envia o formulário?",opts:["type=button","type=send","type=submit","type=form"],c:2},
-  {q:"Sem a tag <br>, o que acontece com label e input?",opts:["Ficam em linhas separadas","Ficam juntos na mesma linha","Somem da tela","Ficam em negrito"],c:1},
-  {q:"Qual dessas opções é um formulário correto?",opts:["<label><form><input></form></label>","<form><label>Nome:</label><br><input type='text'></form>","<input><label>Nome</label>","<button><form></form></button>"],c:1},
-  {q:"Na web, para que serve um formulário?",opts:["Apenas para mostrar imagens","Deixar a página colorida","Coletar dados do usuário","Reproduzir músicas"],c:2}
+  {q:"Qual tag HTML é usada para agrupar todos os campos de um formulário?",opts:["INPUT","FORM","LABEL","BUTTON"],c:1},
+  {q:"Para que serve a tag LABEL no formulário?",opts:["Enviar o formulário","Pular linha","Dar nome/título ao campo","Criar um botão"],c:2},
+  {q:"O que a tag BR faz no HTML?",opts:["Cria um botão","Quebra de linha (pula uma linha)","Cria uma lista","Muda a cor do texto"],c:1},
+  {q:"Qual valor do atributo TYPE é usado para campo de texto simples?",opts:["email","number","password","text"],c:3},
+  {q:"Quais são as 3 tags principais de um formulário básico?",opts:["DIV, P e SPAN","FORM, LABEL e INPUT","TABLE, TR e TD","H1, H2 e H3"],c:1},
+  {q:"O que significa dizer que cada campo coleta um dado?",opts:["Cada campo tem uma cor diferente","Cada campo armazena uma informação do usuário","Cada campo precisa de JavaScript","Cada campo precisa de CSS"],c:1},
+  {q:"Qual valor do atributo TYPE no botão indica que ele envia o formulário?",opts:["button","send","submit","form"],c:2},
+  {q:"Sem usar a tag BR, como ficam LABEL e INPUT na mesma linha?",opts:["Em linhas separadas automaticamente","Juntos na mesma linha","Somem da tela","Ficam em negrito"],c:1},
+  {q:"Qual tag envolve (agrupa) todos os outros campos do formulário?",opts:["LABEL","FORM","INPUT","BUTTON"],c:1},
+  {q:"Na web, para que serve um formulário HTML?",opts:["Apenas mostrar imagens","Deixar a página colorida","Coletar dados digitados pelo usuário","Reproduzir músicas"],c:2}
 ];
 buildQuiz('quiz1','score1','pb1',q1);
 
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function buildQuiz(divId,scoreId,pbId,qs){
   let cur=0,pts=0;
   const div=document.getElementById(divId);
@@ -203,7 +204,7 @@ function buildQuiz(divId,scoreId,pbId,qs){
     }
     document.getElementById(pbId).style.width=((cur/qs.length)*100)+'%';
     const q=qs[cur];
-    div.innerHTML=`<div class="question"><p style="color:#e2e8f0;font-size:.95rem;font-weight:600;margin-bottom:14px">❓ ${cur+1}/10 — ${q.q}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="answer(${i},${q.c},'${divId}','${scoreId}','${pbId}')">${o}</button>`).join('')}</div><div class="feedback" id="fb_${divId}"></div></div>`;
+    div.innerHTML=`<div class="question"><p style="color:#e2e8f0;font-size:.95rem;font-weight:600;margin-bottom:14px">❓ ${cur+1}/10 — ${escHtml(q.q)}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="answer(${i},${q.c},'${divId}','${scoreId}','${pbId}')">${escHtml(o)}</button>`).join('')}</div><div class="feedback" id="fb_${divId}"></div></div>`;
   }
   window['answer']=function(i,c,dId,sId,pId){
     if(dId!==divId)return;
@@ -211,7 +212,7 @@ function buildQuiz(divId,scoreId,pbId,qs){
     btns.forEach(b=>b.disabled=true);
     const fb=document.getElementById('fb_'+dId);
     if(i===c){pts++;btns[i].classList.add('correct');fb.textContent='✓ Correto!';fb.className='feedback ok';}
-    else{btns[i].classList.add('wrong');btns[c].classList.add('correct');fb.textContent='✗ Errou. A resposta é: '+qs[cur].opts[c];fb.className='feedback no';}
+    else{btns[i].classList.add('wrong');btns[c].classList.add('correct');fb.textContent='✗ Errou. A resposta certa é: '+qs[cur].opts[c];fb.className='feedback no';}
     document.getElementById(sId).textContent='Pontos: '+pts;
     setTimeout(()=>{cur++;render();},1600);
   }

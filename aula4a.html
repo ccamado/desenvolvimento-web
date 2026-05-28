@@ -327,7 +327,7 @@ const qs4a=[
   {q:"O que faz margin: 0 auto ?",opts:["Tira as margens","Centraliza o elemento horizontalmente","Aumenta o espaço interno","Remove o elemento da tela"],c:1},
   {q:"Qual a diferença entre padding e margin?",opts:["São a mesma coisa","Padding = espaço dentro; Margin = espaço fora","Margin = espaço dentro; Padding = espaço fora","Só margin funciona em formulários"],c:1},
   {q:"Como se escreve um seletor CSS para a tag h1?",opts:["[h1]","#h1","h1",".h1"],c:2},
-  {q:"Qual forma de aplicar CSS é mais recomendada para iniciantes numa página?",opts:["Inline (style='' na tag)","Tag <style> no <head>","Escrita direto no input","No atributo name"],c:1},
+  {q:"Qual forma de aplicar CSS é mais recomendada para iniciantes?",opts:["Inline (atributo style na tag)","Tag STYLE dentro do HEAD","Escrita direto no input","No atributo name"],c:1},
   {q:"O que a propriedade font-size: 24px faz?",opts:["Define a espessura da letra","Muda a fonte para Arial","Define o tamanho da letra para 24 pixels","Coloca o texto em negrito"],c:2},
   {q:"Qual propriedade define a largura de um elemento?",opts:["size","height","wide","width"],c:3},
   {q:"O valor #f0f4ff é um exemplo de:",opts:["Nome de fonte","Cor no formato hexadecimal","Medida em pixels","Número de formulário"],c:1}
@@ -342,7 +342,7 @@ function render(){
   }
   document.getElementById('pb4a').style.width=((cur/qs4a.length)*100)+'%';
   const q=qs4a[cur];
-  div.innerHTML=`<div class="question" style="animation:fadeIn .3s ease"><p>❓ ${cur+1}/10 — ${q.q}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="ans(${i},${q.c})">${o}</button>`).join('')}</div><div class="feedback" id="fb4a"></div></div>`;
+  div.innerHTML=`<div class="question" style="animation:fadeIn .3s ease"><p>❓ ${cur+1}/10 — ${escHtml(q.q)}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="ans(${i},${q.c})">${escHtml(o)}</button>`).join('')}</div><div class="feedback" id="fb4a"></div></div>`;
 }
 function ans(i,c){
   const btns=div.querySelectorAll('.opt-btn');
