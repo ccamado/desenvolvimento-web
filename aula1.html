@@ -54,8 +54,8 @@
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
     .question p{color:var(--text);font-weight:600;margin-bottom:12px}
     .options{display:grid;gap:8px}
-    .opt-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);text-align:left;cursor:pointer;font-size:.88rem;font-family:'Outfit',sans-serif;transition:all .2s}
-    .opt-btn:hover{background:rgba(52,211,153,.08);border-color:rgba(52,211,153,.4)}
+    .opt-btn{background:#1e2d45;border:2px solid #2a3a55;border-radius:8px;padding:12px 16px;color:#e2e8f0;text-align:left;cursor:pointer;font-size:.92rem;font-family:'Outfit',sans-serif;transition:all .2s;font-weight:500}
+    .opt-btn:hover{background:rgba(52,211,153,.18);border-color:#34d399}
     .opt-btn.correct{background:rgba(52,211,153,.15);border-color:var(--accent);color:var(--accent)}
     .opt-btn.wrong{background:rgba(239,68,68,.1);border-color:#ef4444;color:#ef4444}
     .opt-btn:disabled{cursor:default}
@@ -182,10 +182,10 @@ const q1 = [
   {q:"Qual tag agrupa todos os campos de um formulário?",opts:["<input>","<form>","<label>","<button>"],c:1},
   {q:"Para que serve a tag <label>?",opts:["Enviar o formulário","Pular linha","Dar um nome/título ao campo","Criar botão"],c:2},
   {q:"O que a tag <br> faz no HTML?",opts:["Cria um botão","Pula uma linha","Cria uma lista","Muda a cor"],c:1},
-  {q:"Qual o type correto para um campo de texto simples?",opts:['"email"','"number"','"password"','"text"'],c:3},
+  {q:"Qual o type correto para um campo de texto simples?",opts:["email","number","password","text"],c:3},
   {q:"Quais são as 3 tags principais de um formulário básico?",opts:["<div>, <p>, <span>","<form>, <label>, <input>","<table>, <tr>, <td>","<h1>, <h2>, <h3>"],c:1},
   {q:"O que significa 'campo = dado'?",opts:["Cada campo tem uma cor diferente","Cada campo coleta uma informação do usuário","Cada campo precisa de JavaScript","Cada campo precisa de CSS"],c:1},
-  {q:"Qual atributo do button indica que ele envia o formulário?",opts:['type="button"','type="send"','type="submit"','type="form"'],c:2},
+  {q:"Qual valor do atributo type no button indica que ele envia o formulário?",opts:["type=button","type=send","type=submit","type=form"],c:2},
   {q:"Sem a tag <br>, o que acontece com label e input?",opts:["Ficam em linhas separadas","Ficam juntos na mesma linha","Somem da tela","Ficam em negrito"],c:1},
   {q:"Qual dessas opções é um formulário correto?",opts:["<label><form><input></form></label>","<form><label>Nome:</label><br><input type='text'></form>","<input><label>Nome</label>","<button><form></form></button>"],c:1},
   {q:"Na web, para que serve um formulário?",opts:["Apenas para mostrar imagens","Deixar a página colorida","Coletar dados do usuário","Reproduzir músicas"],c:2}
@@ -203,7 +203,7 @@ function buildQuiz(divId,scoreId,pbId,qs){
     }
     document.getElementById(pbId).style.width=((cur/qs.length)*100)+'%';
     const q=qs[cur];
-    div.innerHTML=`<div class="question"><p>❓ ${cur+1}/10 — ${q.q}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="answer(${i},${q.c},'${divId}','${scoreId}','${pbId}')">${o}</button>`).join('')}</div><div class="feedback" id="fb_${divId}"></div></div>`;
+    div.innerHTML=`<div class="question"><p style="color:#e2e8f0;font-size:.95rem;font-weight:600;margin-bottom:14px">❓ ${cur+1}/10 — ${q.q}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="answer(${i},${q.c},'${divId}','${scoreId}','${pbId}')">${o}</button>`).join('')}</div><div class="feedback" id="fb_${divId}"></div></div>`;
   }
   window['answer']=function(i,c,dId,sId,pId){
     if(dId!==divId)return;
