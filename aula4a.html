@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 4A – Resumo CSS | Desenvolvimento WEB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0a0e1a;--surface:#111827;--card:#1a2235;--border:#2a3a55;--accent:#38bdf8;--accent2:#818cf8;--text:#e2e8f0;--muted:#64748b;--code-bg:#0d1b2a;--green:#34d399}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 30% 20%,rgba(56,189,248,.08) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 70% 80%,rgba(129,140,248,.07) 0%,transparent 60%);pointer-events:none;z-index:0}
+    nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .nav-back{color:var(--accent);text-decoration:none;font-family:'Space Mono',monospace;font-size:11px;transition:opacity .2s}
+    .nav-back:hover{opacity:.7}
+    .nav-sep{color:var(--muted)}
+    .nav-title{font-size:.9rem;color:var(--text);font-weight:600}
+    .nav-badge{background:linear-gradient(90deg,rgba(56,189,248,.15),rgba(129,140,248,.15));color:var(--accent);border:1px solid rgba(56,189,248,.3);font-family:'Space Mono',monospace;font-size:10px;padding:3px 10px;border-radius:4px;margin-left:auto}
+    header{position:relative;z-index:1;padding:48px 24px 32px;max-width:900px;margin:0 auto}
+    .tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+    .tag{font-family:'Space Mono',monospace;font-size:10px;padding:4px 10px;border-radius:4px;letter-spacing:1px;font-weight:700}
+    .tag-week{background:rgba(56,189,248,.1);color:var(--accent);border:1px solid rgba(56,189,248,.3)}
+    .tag-type{background:rgba(52,211,153,.1);color:var(--green);border:1px solid rgba(52,211,153,.3)}
+    .tag-time{background:rgba(129,140,248,.1);color:var(--accent2);border:1px solid rgba(129,140,248,.3)}
+    h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;line-height:1.2;margin-bottom:12px}
+    .subtitle{font-size:1rem;color:var(--muted);line-height:1.6}
+    main{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 24px 80px}
+    section{margin-bottom:44px}
+    h2{font-size:1.25rem;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+    p{line-height:1.7;color:var(--muted);margin-bottom:12px}
+    p strong{color:var(--text)}
+    /* CSS Command Cards - core visual */
+    .cmd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin:16px 0}
+    .cmd{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;transition:border-color .2s,transform .2s}
+    .cmd:hover{border-color:var(--accent);transform:translateY(-2px)}
+    .cmd-prop{font-family:'Space Mono',monospace;font-size:.82rem;color:var(--accent);font-weight:700;margin-bottom:6px}
+    .cmd-desc{font-size:.85rem;color:var(--text);margin-bottom:8px}
+    .cmd-ex{font-family:'Space Mono',monospace;font-size:.75rem;color:var(--green);background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.15);padding:6px 10px;border-radius:6px}
+    /* Color visual swatches */
+    .color-swatch{width:20px;height:20px;border-radius:4px;display:inline-block;vertical-align:middle;margin-right:6px;border:1px solid rgba(255,255,255,.1)}
+    /* CSS Anatomy visual */
+    .anatomy{background:var(--code-bg);border:1px solid var(--border);border-radius:12px;padding:24px;margin:16px 0;font-family:'Space Mono',monospace;font-size:.85rem;line-height:2}
+    .a-sel{color:#38bdf8}
+    .a-brace{color:#64748b}
+    .a-prop{color:#c792ea}
+    .a-col{color:#64748b}
+    .a-val{color:#c3e88d}
+    .a-semi{color:#64748b}
+    .a-label{font-family:'Outfit',sans-serif;font-size:.7rem;background:rgba(56,189,248,.12);color:var(--accent);padding:2px 8px;border-radius:4px;margin-left:8px;vertical-align:middle}
+    pre{background:var(--code-bg);border:1px solid var(--border);border-radius:12px;padding:20px;overflow-x:auto;margin:16px 0;font-family:'Space Mono',monospace;font-size:.82rem;line-height:1.8}
+    pre .cm{color:#546e7a;font-style:italic}
+    pre .sel{color:#38bdf8}
+    pre .prop{color:#c792ea}
+    pre .val{color:#c3e88d}
+    pre .brace{color:#64748b}
+    .preview-split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+    @media(max-width:600px){.preview-split{grid-template-columns:1fr}}
+    .pv-code{background:var(--code-bg);border:1px solid var(--border);border-radius:10px;padding:16px;font-family:'Space Mono',monospace;font-size:.75rem;line-height:1.7;color:#a0aec0}
+    .pv-result{background:#fff;border-radius:10px;padding:16px;display:flex;align-items:center;justify-content:center}
+    /* Resumo caderno */
+    .resumo-box{background:linear-gradient(135deg,rgba(56,189,248,.06),rgba(129,140,248,.06));border:2px solid rgba(56,189,248,.25);border-radius:16px;padding:28px}
+    .resumo-box h3{font-size:1.1rem;margin-bottom:20px;color:var(--accent);display:flex;align-items:center;gap:8px}
+    .resumo-table{width:100%;border-collapse:collapse}
+    .resumo-table th{text-align:left;font-family:'Space Mono',monospace;font-size:.78rem;color:var(--muted);padding:8px 12px;border-bottom:1px solid var(--border)}
+    .resumo-table td{padding:8px 12px;font-size:.85rem;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text)}
+    .resumo-table td:first-child{font-family:'Space Mono',monospace;color:var(--accent);font-size:.78rem}
+    /* Quiz */
+    .quiz-wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px}
+    .quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+    .quiz-header h3{font-size:1.1rem;font-weight:700}
+    .score-display{font-family:'Space Mono',monospace;font-size:.9rem;color:var(--accent)}
+    .question p{color:var(--text);font-weight:600;margin-bottom:12px}
+    .options{display:grid;gap:8px}
+    .opt-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);text-align:left;cursor:pointer;font-size:.88rem;font-family:'Outfit',sans-serif;transition:all .2s}
+    .opt-btn:hover{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.4)}
+    .opt-btn.correct{background:rgba(52,211,153,.15);border-color:#34d399;color:#34d399}
+    .opt-btn.wrong{background:rgba(239,68,68,.1);border-color:#ef4444;color:#ef4444}
+    .opt-btn:disabled{cursor:default}
+    .feedback{font-size:.85rem;margin-top:8px;font-weight:600}
+    .feedback.ok{color:#34d399}.feedback.no{color:#ef4444}
+    .quiz-progress{height:6px;background:var(--surface);border-radius:99px;margin-bottom:20px;overflow:hidden}
+    .quiz-progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width .4s ease}
+    .quiz-result{text-align:center;padding:20px}
+    .quiz-result .big-score{font-size:3.5rem;font-weight:800;font-family:'Space Mono',monospace}
+    .quiz-result button{margin-top:20px;background:var(--accent);color:#0a0e1a;border:none;padding:10px 28px;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif}
+    .nav-aulas{display:flex;gap:12px;margin-top:40px;flex-wrap:wrap}
+    .btn-nav{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;font-size:.9rem;text-decoration:none;transition:all .2s;border:1px solid var(--border);color:var(--text);background:var(--card)}
+    .btn-nav:hover{border-color:var(--accent);color:var(--accent)}
+    .btn-nav.primary{background:var(--accent);color:#0a0e1a;border-color:var(--accent)}
+    .btn-nav.primary:hover{background:#7dd3fc;color:#0a0e1a}
+    footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);font-family:'Space Mono',monospace}
+    footer span{color:var(--accent)}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-back">← Menu</a>
+  <span class="nav-sep">·</span>
+  <span class="nav-title">Aula 4A — Resumo de Comandos CSS</span>
+  <span class="nav-badge">📖 TEORIA · 29/05</span>
+</nav>
+<header>
+  <div class="tag-row">
+    <span class="tag tag-week">Semana 4 · 29/05/2026</span>
+    <span class="tag tag-type">📖 Teórica — 50 min</span>
+    <span class="tag tag-time">🎯 CSS para Formulários</span>
+  </div>
+  <h1>Resumo de Comandos CSS</h1>
+  <p class="subtitle">Hoje vamos aprender a deixar o formulário bonito usando CSS. Esta aula é o mapa — nas próximas duas aulas você vai colocar tudo em prática no laboratório!</p>
+</header>
+<main>
+
+  <section>
+    <h2>🤔 O que é CSS?</h2>
+    <p>CSS é a <strong>roupa do HTML</strong>. O HTML cria a estrutura (os campos, textos, botões). O CSS cuida da aparência: cor, tamanho, espaçamento, fonte, borda…</p>
+    <div class="anatomy">
+      <span class="a-sel">h1</span> <span class="a-label">→ QUEM vai mudar (seletor)</span>
+      <br>
+      <span class="a-brace">{</span>
+      <br>
+&nbsp;&nbsp;<span class="a-prop">color</span><span class="a-col">:</span> <span class="a-val">blue</span><span class="a-semi">;</span> <span class="a-label">→ O QUE muda e COMO muda</span>
+      <br>
+<span class="a-brace">}</span>
+    </div>
+    <p>Lê-se: <strong>"Para o elemento h1, muda a cor para azul."</strong></p>
+  </section>
+
+  <section>
+    <h2>🖋️ Fontes e Texto</h2>
+    <div class="cmd-grid">
+      <div class="cmd">
+        <div class="cmd-prop">font-family</div>
+        <div class="cmd-desc">Define a fonte do texto</div>
+        <div class="cmd-ex">font-family: Arial, sans-serif;</div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-prop">font-size</div>
+        <div class="cmd-desc">Tamanho da fonte</div>
+        <div class="cmd-ex">font-size: 18px;</div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-prop">font-weight</div>
+        <div class="cmd-desc">Espessura da letra (bold = negrito)</div>
+        <div class="cmd-ex">font-weight: bold;</div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-prop">color</div>
+        <div class="cmd-desc">Cor do texto</div>
+        <div class="cmd-ex">color: #333333;</div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-prop">text-align</div>
+        <div class="cmd-desc">Alinhamento do texto</div>
+        <div class="cmd-ex">text-align: center;</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>🎨 Cores e Fundo</h2>
+    <div class="cmd-grid">
+      <div class="cmd">
+        <div class="cmd-prop">background-color</div>
+        <div class="cmd-desc">Cor de fundo do elemento</div>
+        <div class="cmd-ex">background-color: #f0f4ff;</div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-prop">color</div>
+        <div class="cmd-desc">Cor do texto</div>
+        <div class="cmd-ex">color: #1a1a2e;</div>
+      </div>
+    </div>
+    <p>As cores no CSS podem ser escritas de 3 formas:</p>
+    <pre><span class="cm">/* 1. Nome (em inglês): */</span>
+<span class="prop">color</span>: <span class="val">blue</span>;
+
+<span class="cm">/* 2. Hex — 6 dígitos após o #: */</span>
+<span class="prop">color</span>: <span class="val">#3b82f6</span>;
+
+<span class="cm">/* 3. RGB — vermelho, verde, azul (0-255): */</span>
+<span class="prop">color</span>: <span class="val">rgb(59, 130, 246)</span>;</pre>
+  </section>
+
+  <section>
+    <h2>📦 Espaçamento</h2>
+    <div class="cmd-grid">
+      <div class="cmd">
+        <div class="cmd-prop">margin</div>
+        <div class="cmd-desc">Espaço FORA do elemento (empurra os vizinhos)</div>
+        <div class="cmd-ex">margin: 16px;</div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-prop">padding</div>
+        <div class="cmd-desc">Espaço DENTRO do elemento (entre borda e conteúdo)</div>
+        <div class="cmd-ex">padding: 12px 20px;</div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-prop">margin: auto</div>
+        <div class="cmd-desc">Centraliza o elemento na horizontal</div>
+        <div class="cmd-ex">margin: 0 auto;</div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-prop">width</div>
+        <div class="cmd-desc">Largura do elemento</div>
+        <div class="cmd-ex">width: 400px;</div>
+      </div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0;text-align:center">
+      <div style="display:inline-block;background:rgba(56,189,248,.1);border:2px dashed rgba(56,189,248,.4);padding:24px;border-radius:8px;font-size:.85rem;color:var(--accent)">
+        ← padding (espaço dentro) →<br>
+        <div style="background:rgba(56,189,248,.2);padding:12px;border-radius:4px;margin-top:8px;color:var(--text)">CONTEÚDO</div>
+      </div>
+      <p style="margin-top:12px;font-size:.8rem;color:var(--muted)">↑ margin (espaço fora, empurra os outros elementos) ↑</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>🔲 Bordas e Cantos</h2>
+    <div class="cmd-grid">
+      <div class="cmd">
+        <div class="cmd-prop">border</div>
+        <div class="cmd-desc">Borda ao redor do elemento</div>
+        <div class="cmd-ex">border: 2px solid #ccc;</div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-prop">border-radius</div>
+        <div class="cmd-desc">Arredonda os cantos</div>
+        <div class="cmd-ex">border-radius: 8px;</div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-prop">box-shadow</div>
+        <div class="cmd-desc">Sombra ao redor do elemento</div>
+        <div class="cmd-ex">box-shadow: 0 4px 12px rgba(0,0,0,0.1);</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>🏷️ Como aplicar CSS — 3 formas</h2>
+    <pre><span class="cm">/* FORMA 1: inline (diretamente na tag — evitar!) */</span>
+&lt;h1 style=<span class="val">"color: red;"</span>&gt;Título&lt;/h1&gt;
+
+<span class="cm">/* FORMA 2: tag &lt;style&gt; no &lt;head&gt; — usaremos hoje! */</span>
+&lt;style&gt;
+  <span class="sel">h1</span> <span class="brace">{</span>
+    <span class="prop">color</span>: <span class="val">red</span>;
+  <span class="brace">}</span>
+&lt;/style&gt;
+
+<span class="cm">/* FORMA 3: arquivo externo .css — próximas aulas */</span>
+&lt;link rel=<span class="val">"stylesheet"</span> href=<span class="val">"estilo.css"</span>&gt;</pre>
+  </section>
+
+  <section>
+    <h2>👁️ Antes x Depois do CSS</h2>
+    <div class="preview-split">
+      <div>
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:8px;font-family:'Space Mono',monospace">SEM CSS (puro HTML):</p>
+        <div style="background:#fff;border-radius:10px;padding:16px;color:#111;font-family:serif">
+          <div style="font-size:1rem;font-weight:bold;margin-bottom:8px">Ficha do Aluno</div>
+          Nome: <input type="text" style="border:1px solid #ccc;width:90%;margin-bottom:6px;display:block"><br>
+          E-mail: <input type="email" style="border:1px solid #ccc;width:90%;display:block"><br>
+          <button style="margin-top:6px">Enviar</button>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:8px;font-family:'Space Mono',monospace">COM CSS (o que faremos hoje!):</p>
+        <div style="background:linear-gradient(135deg,#1e3a5f,#0f2340);border-radius:10px;padding:20px">
+          <div style="font-size:1.1rem;font-weight:800;color:#38bdf8;text-align:center;margin-bottom:14px;font-family:'Outfit',sans-serif">📝 Ficha do Aluno</div>
+          <label style="display:block;font-size:.75rem;color:#93c5fd;margin-bottom:4px;font-family:'Outfit',sans-serif">Nome</label>
+          <input type="text" style="width:100%;padding:8px 12px;border-radius:6px;border:1px solid rgba(56,189,248,.3);background:rgba(255,255,255,.05);color:#e2e8f0;margin-bottom:10px;font-family:'Outfit',sans-serif">
+          <label style="display:block;font-size:.75rem;color:#93c5fd;margin-bottom:4px;font-family:'Outfit',sans-serif">E-mail</label>
+          <input type="email" style="width:100%;padding:8px 12px;border-radius:6px;border:1px solid rgba(56,189,248,.3);background:rgba(255,255,255,.05);color:#e2e8f0;margin-bottom:12px;font-family:'Outfit',sans-serif">
+          <button style="width:100%;background:#38bdf8;color:#0f2340;border:none;padding:10px;border-radius:8px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif">Enviar →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>📒 Resumo para o caderno</h2>
+    <div class="resumo-box">
+      <h3>✏️ Copie no caderno — Aula 4A</h3>
+      <table class="resumo-table">
+        <thead><tr><th>Propriedade CSS</th><th>O que faz</th><th>Exemplo</th></tr></thead>
+        <tbody>
+          <tr><td>font-family</td><td>Define a fonte</td><td>font-family: Arial;</td></tr>
+          <tr><td>font-size</td><td>Tamanho da letra</td><td>font-size: 18px;</td></tr>
+          <tr><td>color</td><td>Cor do texto</td><td>color: #333;</td></tr>
+          <tr><td>background-color</td><td>Cor de fundo</td><td>background-color: #f0f4ff;</td></tr>
+          <tr><td>padding</td><td>Espaço dentro</td><td>padding: 12px 20px;</td></tr>
+          <tr><td>margin</td><td>Espaço fora</td><td>margin: 0 auto;</td></tr>
+          <tr><td>border-radius</td><td>Cantos arredondados</td><td>border-radius: 8px;</td></tr>
+          <tr><td>width</td><td>Largura</td><td>width: 400px;</td></tr>
+          <tr><td>text-align</td><td>Alinhamento</td><td>text-align: center;</td></tr>
+          <tr><td>box-shadow</td><td>Sombra</td><td>box-shadow: 0 4px 12px rgba(0,0,0,.1);</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>🎮 Quiz — Aula 4A</h2>
+    <div class="quiz-wrap">
+      <div class="quiz-header">
+        <h3>10 perguntas · CSS Básico</h3>
+        <span class="score-display" id="score4a">Pontos: 0</span>
+      </div>
+      <div class="quiz-progress"><div class="quiz-progress-bar" id="pb4a" style="width:0%"></div></div>
+      <div id="quiz4a"></div>
+    </div>
+  </section>
+
+  <div class="nav-aulas">
+    <a href="index.html" class="btn-nav">← Menu</a>
+    <a href="aula4b.html" class="btn-nav primary">🧪 Ir para o Laboratório 1 →</a>
+  </div>
+</main>
+<footer><p>Desenvolvimento WEB · 2º Ano A · Prof. <span>Claudio Amado</span> · 2026</p></footer>
+
+<script>
+const qs4a=[
+  {q:"O que CSS faz em relação ao HTML?",opts:["Cria a estrutura da página","Define a aparência (visual) dos elementos","Armazena os dados no banco","Conecta à internet"],c:1},
+  {q:"Qual propriedade CSS muda a cor do texto?",opts:["background-color","font-color","color","text-color"],c:2},
+  {q:"Qual propriedade arredonda os cantos de um elemento?",opts:["border-round","corner-radius","border-radius","rounded"],c:2},
+  {q:"O que faz margin: 0 auto ?",opts:["Tira as margens","Centraliza o elemento horizontalmente","Aumenta o espaço interno","Remove o elemento da tela"],c:1},
+  {q:"Qual a diferença entre padding e margin?",opts:["São a mesma coisa","Padding = espaço dentro; Margin = espaço fora","Margin = espaço dentro; Padding = espaço fora","Só margin funciona em formulários"],c:1},
+  {q:"Como se escreve um seletor CSS para h1?",opts:["[h1] { }","#h1 { }","h1 { }",".h1 { }"],c:2},
+  {q:"Qual forma de aplicar CSS é mais recomendada para iniciantes numa página?",opts:["Inline (style='' na tag)","Tag <style> no <head>","Escrita direto no input","No atributo name"],c:1},
+  {q:"O que font-size: 24px faz?",opts:["Define a espessura da letra","Muda a fonte para Arial","Define o tamanho da letra para 24 pixels","Coloca o texto em negrito"],c:2},
+  {q:"Qual propriedade define a largura de um elemento?",opts:["size","height","wide","width"],c:3},
+  {q:"O valor #f0f4ff é um exemplo de:",opts:["Nome de fonte","Cor no formato hexadecimal","Medida em pixels","Número de formulário"],c:1}
+];
+let cur=0,pts=0;
+const div=document.getElementById('quiz4a');
+function render(){
+  if(cur>=qs4a.length){
+    div.innerHTML=`<div class="quiz-result"><div class="big-score" style="color:${pts>=7?'#34d399':pts>=5?'#fbbf24':'#ef4444'}">${pts}/10</div><p>${pts>=8?'🏆 Excelente! Pronto pro laboratório!':pts>=6?'👍 Bom! Revise os erros e parte pro lab.':'💪 Revise o resumo e tente de novo!'}</p><button onclick="cur=0;pts=0;render()">Tentar de novo</button></div>`;
+    document.getElementById('score4a').textContent='Pontos: '+pts;
+    return;
+  }
+  document.getElementById('pb4a').style.width=((cur/qs4a.length)*100)+'%';
+  const q=qs4a[cur];
+  div.innerHTML=`<div class="question" style="animation:fadeIn .3s ease"><p>❓ ${cur+1}/10 — ${q.q}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="ans(${i},${q.c})">${o}</button>`).join('')}</div><div class="feedback" id="fb4a"></div></div>`;
+}
+function ans(i,c){
+  const btns=div.querySelectorAll('.opt-btn');
+  btns.forEach(b=>b.disabled=true);
+  if(i===c){pts++;btns[i].classList.add('correct');document.getElementById('fb4a').textContent='✓ Correto!';document.getElementById('fb4a').className='feedback ok';}
+  else{btns[i].classList.add('wrong');btns[c].classList.add('correct');document.getElementById('fb4a').textContent='✗ Resposta: '+qs4a[cur].opts[c];document.getElementById('fb4a').className='feedback no';}
+  document.getElementById('score4a').textContent='Pontos: '+pts;
+  setTimeout(()=>{cur++;render();},1600);
+}
+render();
+</script>
+</body>
+</html>

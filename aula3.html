@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 3 – Campos de Escolha | Desenvolvimento WEB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0a0e1a;--surface:#111827;--card:#1a2235;--border:#2a3a55;--accent:#c084fc;--accent2:#e879f9;--text:#e2e8f0;--muted:#64748b;--code-bg:#0d1b2a}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(192,132,252,.07) 0%,transparent 60%);pointer-events:none;z-index:0}
+    nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px}
+    .nav-back{color:var(--accent);text-decoration:none;font-family:'Space Mono',monospace;font-size:12px;transition:opacity .2s}
+    .nav-back:hover{opacity:.7}
+    .nav-title{font-size:.9rem;color:var(--muted)}
+    .nav-title strong{color:var(--text)}
+    .badge-rev{background:rgba(192,132,252,.1);color:var(--accent);border:1px solid rgba(192,132,252,.3);font-family:'Space Mono',monospace;font-size:10px;padding:3px 8px;border-radius:4px;margin-left:auto}
+    header{position:relative;z-index:1;padding:48px 24px 32px;max-width:860px;margin:0 auto}
+    .week-label{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px}
+    h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;line-height:1.2;margin-bottom:12px}
+    .meta{font-size:.9rem;color:var(--muted)}
+    main{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:0 24px 80px}
+    section{margin-bottom:40px}
+    h2{font-size:1.3rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+    p{line-height:1.7;color:var(--muted);margin-bottom:12px}
+    p strong{color:var(--text)}
+    .highlight-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin:16px 0}
+    .highlight-box.purple{border-color:rgba(192,132,252,.3);background:rgba(192,132,252,.05)}
+    code{font-family:'Space Mono',monospace;background:var(--code-bg);border:1px solid var(--border);padding:2px 7px;border-radius:4px;font-size:.82em;color:#d8b4fe}
+    pre{background:var(--code-bg);border:1px solid var(--border);border-radius:12px;padding:20px;overflow-x:auto;margin:16px 0;font-family:'Space Mono',monospace;font-size:.82rem;line-height:1.7}
+    pre .tag{color:#38bdf8}
+    pre .attr{color:#7dd3fc}
+    pre .val{color:#c3e88d}
+    pre .cm{color:#546e7a;font-style:italic}
+    .compare-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:16px 0}
+    .cmp{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+    .cmp-title{font-weight:700;color:var(--accent);margin-bottom:8px;font-size:.95rem}
+    .cmp-use{font-size:.82rem;color:var(--muted);margin-bottom:12px}
+    .cmp-ex{font-size:.82rem;color:var(--text)}
+    .preview-box{background:#fff;border-radius:12px;padding:20px;margin:16px 0;color:#111}
+    .preview-box label{display:block;font-weight:600;font-size:.85rem;margin-bottom:8px;color:#333}
+    .preview-box select{border:2px solid #e5e7eb;border-radius:6px;padding:8px 12px;width:100%;margin-bottom:14px;font-size:.9rem}
+    .resumo-box{background:linear-gradient(135deg,rgba(192,132,252,.08),rgba(232,121,249,.08));border:1px solid rgba(192,132,252,.3);border-radius:16px;padding:28px}
+    .resumo-box h3{font-size:1.1rem;margin-bottom:16px;color:var(--accent)}
+    .resumo-box ul{list-style:none;padding:0}
+    .resumo-box ul li{padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.88rem;color:var(--text)}
+    .resumo-box ul li:last-child{border-bottom:none}
+    .resumo-box ul li::before{content:"→ ";color:var(--accent);font-weight:700}
+    .quiz-wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px}
+    .quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+    .quiz-header h3{font-size:1.1rem;font-weight:700}
+    .score-display{font-family:'Space Mono',monospace;font-size:.9rem;color:var(--accent)}
+    .question p{color:var(--text);font-weight:600;margin-bottom:12px}
+    .options{display:grid;gap:8px}
+    .opt-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);text-align:left;cursor:pointer;font-size:.88rem;font-family:'Outfit',sans-serif;transition:all .2s}
+    .opt-btn:hover{background:rgba(192,132,252,.08);border-color:rgba(192,132,252,.4)}
+    .opt-btn.correct{background:rgba(52,211,153,.15);border-color:#34d399;color:#34d399}
+    .opt-btn.wrong{background:rgba(239,68,68,.1);border-color:#ef4444;color:#ef4444}
+    .opt-btn:disabled{cursor:default}
+    .feedback{font-size:.85rem;margin-top:8px;font-weight:600}
+    .feedback.ok{color:#34d399}
+    .feedback.no{color:#ef4444}
+    .quiz-progress{height:6px;background:var(--surface);border-radius:99px;margin-bottom:20px;overflow:hidden}
+    .quiz-progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width .4s ease}
+    .quiz-result{text-align:center;padding:20px}
+    .quiz-result .big-score{font-size:3.5rem;font-weight:800;font-family:'Space Mono',monospace}
+    .quiz-result button{margin-top:20px;background:var(--accent);color:#0a0e1a;border:none;padding:10px 28px;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif}
+    footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);font-family:'Space Mono',monospace}
+    footer span{color:var(--accent)}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-back">← Menu</a>
+  <span class="nav-title"><strong>Aula 3</strong> — Campos de Escolha</span>
+  <span class="badge-rev">REVISÃO</span>
+</nav>
+<header>
+  <div class="week-label">Semana 3 · 22/05/2026</div>
+  <h1>Campos de Escolha: radio, select e checkbox</h1>
+  <p class="meta">Duração: 50 min &nbsp;·&nbsp; Sala de aula &nbsp;·&nbsp; Prof. Claudio Amado</p>
+</header>
+<main>
+
+  <section>
+    <h2><span class="icon">🤔</span> Quando usar cada um?</h2>
+    <p>Às vezes o usuário não precisa <em>digitar</em> — ele só precisa <strong>escolher</strong>. Isso evita erros e agiliza o preenchimento. Temos 3 tipos de campos de escolha:</p>
+    <div class="compare-grid">
+      <div class="cmp">
+        <div class="cmp-title">🔘 radio</div>
+        <div class="cmp-use">Escolha uma opção entre várias</div>
+        <div class="cmp-ex">Ex: Série (1º / 2º / 3º)</div>
+      </div>
+      <div class="cmp">
+        <div class="cmp-title">📋 select / option</div>
+        <div class="cmp-use">Lista suspensa para escolha única</div>
+        <div class="cmp-ex">Ex: Cidade (lista de cidades)</div>
+      </div>
+      <div class="cmp">
+        <div class="cmp-title">☑️ checkbox</div>
+        <div class="cmp-use">Marcar várias opções ao mesmo tempo</div>
+        <div class="cmp-ex">Ex: Interesses (Esporte, Música, Tech)</div>
+      </div>
+    </div>
+    <div class="highlight-box purple">
+      <strong>💡 Dica:</strong> radio = só 1 escolha | checkbox = pode marcar vários | select = lista compacta
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="icon">🔘</span> Radio — escolha uma opção</h2>
+    <p>O atributo <code>name</code> igual agrupa os radio buttons (garante que só um seja marcado).</p>
+    <pre><span class="cm">&lt;!-- Todos com o mesmo name="serie" --&gt;</span>
+<span class="tag">&lt;p&gt;</span>Qual é sua série?<span class="tag">&lt;/p&gt;</span>
+
+<span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"radio"</span> <span class="attr">name</span>=<span class="val">"serie"</span> <span class="attr">value</span>=<span class="val">"1ano"</span><span class="tag">&gt;</span> 1º Ano
+<span class="tag">&lt;br&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"radio"</span> <span class="attr">name</span>=<span class="val">"serie"</span> <span class="attr">value</span>=<span class="val">"2ano"</span><span class="tag">&gt;</span> 2º Ano
+<span class="tag">&lt;br&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"radio"</span> <span class="attr">name</span>=<span class="val">"serie"</span> <span class="attr">value</span>=<span class="val">"3ano"</span><span class="tag">&gt;</span> 3º Ano</pre>
+  </section>
+
+  <section>
+    <h2><span class="icon">📋</span> Select — lista suspensa</h2>
+    <p>O <code>&lt;select&gt;</code> cria a caixinha e cada <code>&lt;option&gt;</code> é um item da lista.</p>
+    <pre><span class="tag">&lt;label&gt;</span>Cidade:<span class="tag">&lt;/label&gt;</span>
+<span class="tag">&lt;br&gt;</span>
+<span class="tag">&lt;select</span> <span class="attr">name</span>=<span class="val">"cidade"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="val">""</span><span class="tag">&gt;</span>-- Selecione --<span class="tag">&lt;/option&gt;</span>
+  <span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="val">"cg"</span><span class="tag">&gt;</span>Campo Grande<span class="tag">&lt;/option&gt;</span>
+  <span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="val">"dou"</span><span class="tag">&gt;</span>Dourados<span class="tag">&lt;/option&gt;</span>
+  <span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="val">"cor"</span><span class="tag">&gt;</span>Corumbá<span class="tag">&lt;/option&gt;</span>
+<span class="tag">&lt;/select&gt;</span></pre>
+  </section>
+
+  <section>
+    <h2><span class="icon">☑️</span> Checkbox — múltiplas escolhas</h2>
+    <p>Diferente do radio, o checkbox permite marcar <strong>mais de um</strong> ao mesmo tempo.</p>
+    <pre><span class="tag">&lt;p&gt;</span>Seus interesses:<span class="tag">&lt;/p&gt;</span>
+
+<span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"checkbox"</span> <span class="attr">name</span>=<span class="val">"interesse"</span> <span class="attr">value</span>=<span class="val">"esporte"</span><span class="tag">&gt;</span> Esporte
+<span class="tag">&lt;br&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"checkbox"</span> <span class="attr">name</span>=<span class="val">"interesse"</span> <span class="attr">value</span>=<span class="val">"musica"</span><span class="tag">&gt;</span> Música
+<span class="tag">&lt;br&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"checkbox"</span> <span class="attr">name</span>=<span class="val">"interesse"</span> <span class="attr">value</span>=<span class="val">"tecnologia"</span><span class="tag">&gt;</span> Tecnologia</pre>
+  </section>
+
+  <section>
+    <h2><span class="icon">👁️</span> Pré-visualização</h2>
+    <div class="preview-box">
+      <label>Série (radio — só 1):</label>
+      <div style="margin-bottom:14px">
+        <input type="radio" name="serie" value="1"> 1º Ano &nbsp;&nbsp;
+        <input type="radio" name="serie" value="2"> 2º Ano &nbsp;&nbsp;
+        <input type="radio" name="serie" value="3"> 3º Ano
+      </div>
+      <label>Cidade (select — lista suspensa):</label>
+      <select><option>-- Selecione --</option><option>Campo Grande</option><option>Dourados</option><option>Corumbá</option></select>
+      <label>Interesses (checkbox — pode marcar vários):</label>
+      <div>
+        <input type="checkbox"> Esporte &nbsp;&nbsp;
+        <input type="checkbox"> Música &nbsp;&nbsp;
+        <input type="checkbox"> Tecnologia
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="icon">📒</span> Resumo para o caderno</h2>
+    <div class="resumo-box">
+      <h3>✏️ Copie no caderno — Aula 3</h3>
+      <ul>
+        <li>radio → escolha única; todos com o mesmo name="grupo"</li>
+        <li>select/option → lista suspensa compacta; bom para muitas opções</li>
+        <li>checkbox → múltipla escolha; o usuário pode marcar vários</li>
+        <li>value="valor" → o dado que vai ser enviado ao sistema</li>
+        <li>radio e checkbox precisam de name igual para funcionar no grupo</li>
+        <li>select tem option filha (uma por linha de opção)</li>
+        <li>Regra: 1 opção obrigatória = radio | Várias = checkbox | Lista longa = select</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="icon">🎮</span> Quiz — Aula 3</h2>
+    <div class="quiz-wrap">
+      <div class="quiz-header">
+        <h3>10 perguntas · Revisão</h3>
+        <span class="score-display" id="score3">Pontos: 0</span>
+      </div>
+      <div class="quiz-progress"><div class="quiz-progress-bar" id="pb3" style="width:0%"></div></div>
+      <div id="quiz3"></div>
+    </div>
+  </section>
+</main>
+<footer><p>Desenvolvimento WEB · 2º Ano A · Prof. <span>Claudio Amado</span> · 2026</p></footer>
+
+<script>
+const qs3=[
+  {q:"Qual campo permite escolher APENAS UMA opção entre várias?",opts:["checkbox","select","radio","text"],c:2},
+  {q:"Qual campo permite marcar VÁRIAS opções ao mesmo tempo?",opts:["radio","select","text","checkbox"],c:3},
+  {q:"O que o atributo name igual faz em botões radio?",opts:["Muda a cor deles","Agrupa para que só 1 possa ser marcado","Coloca em negrito","Envia automaticamente"],c:1},
+  {q:"Qual tag cria a lista suspensa (dropdown)?",opts:["<list>","<dropdown>","<select>","<combo>"],c:2},
+  {q:"Qual tag define cada item dentro de um select?",opts:["<item>","<li>","<choice>","<option>"],c:3},
+  {q:"Se eu quero que o usuário escolha uma cidade de uma lista de 50 cidades, qual campo é melhor?",opts:["50 radio buttons","50 checkboxes","select/option","Nenhum dos anteriores"],c:2},
+  {q:"O atributo value no radio/checkbox guarda o quê?",opts:["A cor do botão","A posição na tela","O dado que será enviado ao sistema","O nome do campo"],c:2},
+  {q:"Qual a diferença entre radio e checkbox?",opts:["Radio aceita texto; checkbox não","Radio = 1 escolha; checkbox = múltiplas","Radio é maior; checkbox é menor","Não há diferença"],c:1},
+  {q:"Se dois radio buttons têm name='fruta', o que acontece ao marcar um e depois o outro?",opts:["Os dois ficam marcados","O primeiro desmarca e o segundo marca","Os dois desmarcam","Aparece um erro"],c:1},
+  {q:"Posso usar checkbox e radio no mesmo formulário?",opts:["Não, só pode um tipo","Sim, sem problema","Só em páginas separadas","Precisa de JavaScript para isso"],c:1}
+];
+let cur3=0,pts3=0;
+const div3=document.getElementById('quiz3');
+function render3(){
+  if(cur3>=qs3.length){
+    div3.innerHTML=`<div class="quiz-result"><div class="big-score" style="color:${pts3>=7?'#34d399':pts3>=5?'#fbbf24':'#ef4444'}">${pts3}/10</div><p>${pts3>=8?'🏆 Excelente!':pts3>=6?'👍 Bom trabalho!':'💪 Continue praticando!'}</p><button onclick="cur3=0;pts3=0;render3()">Tentar de novo</button></div>`;
+    return;
+  }
+  document.getElementById('pb3').style.width=((cur3/qs3.length)*100)+'%';
+  const q=qs3[cur3];
+  div3.innerHTML=`<div class="question" style="animation:fadeIn .3s ease"><p>❓ ${cur3+1}/10 — ${q.q}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="ans3(${i},${q.c})">${o}</button>`).join('')}</div><div class="feedback" id="fb3"></div></div>`;
+}
+function ans3(i,c){
+  const btns=div3.querySelectorAll('.opt-btn');
+  btns.forEach(b=>b.disabled=true);
+  if(i===c){pts3++;btns[i].classList.add('correct');document.getElementById('fb3').textContent='✓ Correto!';document.getElementById('fb3').className='feedback ok';}
+  else{btns[i].classList.add('wrong');btns[c].classList.add('correct');document.getElementById('fb3').textContent='✗ Resposta: '+qs3[cur3].opts[c];document.getElementById('fb3').className='feedback no';}
+  document.getElementById('score3').textContent='Pontos: '+pts3;
+  setTimeout(()=>{cur3++;render3();},1600);
+}
+render3();
+</script>
+</body>
+</html>

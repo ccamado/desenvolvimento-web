@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 4B – Lab 1: Fonte e Fundo | Desenvolvimento WEB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0a0e1a;--surface:#111827;--card:#1a2235;--border:#2a3a55;--accent:#818cf8;--accent2:#38bdf8;--text:#e2e8f0;--muted:#64748b;--code-bg:#0d1b2a;--green:#34d399}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 20%,rgba(129,140,248,.08) 0%,transparent 60%);pointer-events:none;z-index:0}
+    nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .nav-back{color:var(--accent);text-decoration:none;font-family:'Space Mono',monospace;font-size:11px;transition:opacity .2s}
+    .nav-back:hover{opacity:.7}
+    .nav-sep{color:var(--muted)}
+    .nav-title{font-size:.9rem;color:var(--text);font-weight:600}
+    .nav-badge{background:rgba(129,140,248,.12);color:var(--accent);border:1px solid rgba(129,140,248,.3);font-family:'Space Mono',monospace;font-size:10px;padding:3px 10px;border-radius:4px;margin-left:auto}
+    header{position:relative;z-index:1;padding:48px 24px 32px;max-width:860px;margin:0 auto}
+    .tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+    .tag{font-family:'Space Mono',monospace;font-size:10px;padding:4px 10px;border-radius:4px;letter-spacing:1px;font-weight:700}
+    .tag-lab{background:rgba(129,140,248,.1);color:var(--accent);border:1px solid rgba(129,140,248,.3)}
+    .tag-plat{background:rgba(56,189,248,.1);color:var(--accent2);border:1px solid rgba(56,189,248,.3)}
+    .tag-time{background:rgba(52,211,153,.1);color:var(--green);border:1px solid rgba(52,211,153,.3)}
+    h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;line-height:1.2;margin-bottom:12px}
+    .subtitle{font-size:1rem;color:var(--muted);line-height:1.6}
+    main{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:0 24px 80px}
+    /* PLATFORM CALLOUT */
+    .platform-box{background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(129,140,248,.08));border:2px solid rgba(56,189,248,.3);border-radius:16px;padding:24px;margin:24px 0;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+    .plat-icon{font-size:2.5rem}
+    .plat-info h3{font-size:1rem;font-weight:700;color:var(--accent2);margin-bottom:6px}
+    .plat-info p{font-size:.88rem;color:var(--muted);margin-bottom:10px}
+    .plat-link{display:inline-block;background:var(--accent2);color:#0a0e1a;text-decoration:none;padding:8px 20px;border-radius:8px;font-weight:700;font-size:.88rem;font-family:'Outfit',sans-serif}
+    /* Steps */
+    .step{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px;position:relative}
+    .step-num{position:absolute;top:-12px;left:20px;background:var(--accent);color:#0a0e1a;font-family:'Space Mono',monospace;font-size:.78rem;font-weight:700;padding:3px 12px;border-radius:99px}
+    .step h3{font-size:1rem;font-weight:700;margin-bottom:12px;margin-top:8px}
+    .step p{font-size:.88rem;color:var(--muted);margin-bottom:10px;line-height:1.7}
+    .step p strong{color:var(--text)}
+    pre{background:var(--code-bg);border:1px solid var(--border);border-radius:10px;padding:16px;overflow-x:auto;margin:10px 0;font-family:'Space Mono',monospace;font-size:.8rem;line-height:1.8;white-space:pre}
+    pre .tag{color:#38bdf8}
+    pre .attr{color:#7dd3fc}
+    pre .val{color:#c3e88d}
+    pre .cm{color:#546e7a;font-style:italic}
+    pre .sel{color:#38bdf8}
+    pre .prop{color:#c792ea}
+    pre .brace{color:#64748b}
+    .tip{background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.25);border-radius:8px;padding:12px 16px;font-size:.84rem;color:var(--text);margin:10px 0;display:flex;gap:10px;align-items:flex-start}
+    .tip-icon{font-size:1.1rem;margin-top:1px}
+    .warn{background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.25);border-radius:8px;padding:12px 16px;font-size:.84rem;color:var(--text);margin:10px 0;display:flex;gap:10px;align-items:flex-start}
+    .checkpoint{background:var(--surface);border:2px solid var(--accent);border-radius:12px;padding:20px;margin:20px 0;text-align:center}
+    .checkpoint h3{color:var(--accent);font-size:1rem;margin-bottom:8px}
+    .checkpoint p{font-size:.88rem;color:var(--muted)}
+    /* Preview result */
+    .result-preview{background:#1a2040;border-radius:12px;padding:0;overflow:hidden;margin:16px 0}
+    .result-preview .browser-bar{background:#0d1117;padding:10px 16px;display:flex;align-items:center;gap:8px}
+    .dot{width:10px;height:10px;border-radius:50%}
+    .d1{background:#ff5f57}.d2{background:#febc2e}.d3{background:#28c840}
+    .result-preview .content{padding:20px}
+    /* Quiz */
+    section{margin-bottom:40px}
+    h2{font-size:1.2rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+    .quiz-wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px}
+    .quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+    .quiz-header h3{font-size:1.1rem;font-weight:700}
+    .score-display{font-family:'Space Mono',monospace;font-size:.9rem;color:var(--accent)}
+    .question p{color:var(--text);font-weight:600;margin-bottom:12px}
+    .options{display:grid;gap:8px}
+    .opt-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);text-align:left;cursor:pointer;font-size:.88rem;font-family:'Outfit',sans-serif;transition:all .2s}
+    .opt-btn:hover{background:rgba(129,140,248,.08);border-color:rgba(129,140,248,.4)}
+    .opt-btn.correct{background:rgba(52,211,153,.15);border-color:#34d399;color:#34d399}
+    .opt-btn.wrong{background:rgba(239,68,68,.1);border-color:#ef4444;color:#ef4444}
+    .opt-btn:disabled{cursor:default}
+    .feedback{font-size:.85rem;margin-top:8px;font-weight:600}
+    .feedback.ok{color:#34d399}.feedback.no{color:#ef4444}
+    .quiz-progress{height:6px;background:var(--surface);border-radius:99px;margin-bottom:20px;overflow:hidden}
+    .quiz-progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width .4s ease}
+    .quiz-result{text-align:center;padding:20px}
+    .quiz-result .big-score{font-size:3.5rem;font-weight:800;font-family:'Space Mono',monospace}
+    .quiz-result button{margin-top:20px;background:var(--accent);color:#0a0e1a;border:none;padding:10px 28px;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif}
+    .nav-aulas{display:flex;gap:12px;margin-top:40px;flex-wrap:wrap}
+    .btn-nav{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;font-size:.9rem;text-decoration:none;transition:all .2s;border:1px solid var(--border);color:var(--text);background:var(--card)}
+    .btn-nav:hover{border-color:var(--accent);color:var(--accent)}
+    .btn-nav.primary{background:var(--accent);color:#0a0e1a;border-color:var(--accent)}
+    .btn-nav.primary:hover{opacity:.85}
+    footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);font-family:'Space Mono',monospace}
+    footer span{color:var(--accent)}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    code{font-family:'Space Mono',monospace;background:var(--code-bg);border:1px solid var(--border);padding:2px 7px;border-radius:4px;font-size:.82em;color:#d8b4fe}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-back">← Menu</a>
+  <span class="nav-sep">·</span>
+  <a href="aula4a.html" class="nav-back">4A: Teoria</a>
+  <span class="nav-sep">·</span>
+  <span class="nav-title">Aula 4B — Lab 1</span>
+  <span class="nav-badge">🧪 LAB · 29/05</span>
+</nav>
+<header>
+  <div class="tag-row">
+    <span class="tag tag-lab">🧪 Laboratório 1</span>
+    <span class="tag tag-plat">💻 Online — Sem Login</span>
+    <span class="tag tag-time">⏱ 50 min</span>
+  </div>
+  <h1>Lab 1: Estilizando Fonte e Fundo</h1>
+  <p class="subtitle">Vamos ao computador! Siga cada passo com calma. Não pule etapas — cada uma depende da anterior.</p>
+</header>
+<main>
+
+  <div class="platform-box">
+    <span class="plat-icon">🌐</span>
+    <div class="plat-info">
+      <h3>Plataforma: CodePen — Zero login, zero instalação!</h3>
+      <p>O CodePen é um editor online onde você escreve HTML e CSS e vê o resultado em tempo real. É gratuito e não precisa criar conta para usar.</p>
+      <a class="plat-link" href="https://codepen.io/pen/" target="_blank">▶ Abrir o CodePen agora</a>
+      &nbsp;&nbsp;<span style="font-size:.82rem;color:var(--muted)">← Clique aqui e depois volte para seguir os passos</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>🗺️ O que faremos hoje</h2>
+    <p>Em 6 passos, vamos partir de um formulário sem estilo e adicionar <strong>fonte bonita</strong>, <strong>cor de fundo agradável</strong> e <strong>espaçamento básico</strong>. Resultado esperado ao final:</p>
+    <div class="result-preview">
+      <div class="browser-bar"><div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div><span style="font-size:.75rem;color:#546e7a;margin-left:8px">codepen.io</span></div>
+      <div class="content">
+        <div style="background:linear-gradient(135deg,#e0f2fe,#ddd6fe);min-height:200px;border-radius:8px;padding:24px;font-family:'Outfit',sans-serif">
+          <h2 style="color:#1e3a5f;text-align:center;margin-bottom:20px;font-size:1.3rem">📝 Ficha do Aluno</h2>
+          <div style="margin-bottom:14px"><label style="display:block;font-size:.85rem;color:#334155;margin-bottom:4px">Nome:</label><input type="text" style="width:100%;padding:8px 12px;border:1px solid #94a3b8;border-radius:6px;font-family:'Outfit',sans-serif;font-size:.9rem;background:#fff;color:#1e293b"></div>
+          <div><label style="display:block;font-size:.85rem;color:#334155;margin-bottom:4px">E-mail:</label><input type="email" style="width:100%;padding:8px 12px;border:1px solid #94a3b8;border-radius:6px;font-family:'Outfit',sans-serif;font-size:.9rem;background:#fff;color:#1e293b"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>📋 Passos do Laboratório</h2>
+
+    <div class="step">
+      <span class="step-num">PASSO 1 — Estrutura base</span>
+      <h3>Cole o HTML inicial no CodePen</h3>
+      <p>No CodePen, você verá 3 caixas: <strong>HTML</strong>, <strong>CSS</strong> e <strong>JS</strong>. Clique na caixa <strong>HTML</strong> e cole o código abaixo:</p>
+      <pre><span class="tag">&lt;h2&gt;</span>Ficha do Aluno<span class="tag">&lt;/h2&gt;</span>
+
+<span class="tag">&lt;form&gt;</span>
+
+  <span class="tag">&lt;label&gt;</span>Nome:<span class="tag">&lt;/label&gt;</span>
+  <span class="tag">&lt;br&gt;</span>
+  <span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"text"</span> <span class="attr">placeholder</span>=<span class="val">"Seu nome"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;br&gt;&lt;br&gt;</span>
+
+  <span class="tag">&lt;label&gt;</span>Turma:<span class="tag">&lt;/label&gt;</span>
+  <span class="tag">&lt;br&gt;</span>
+  <span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"text"</span> <span class="attr">placeholder</span>=<span class="val">"Ex: 2A"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;br&gt;&lt;br&gt;</span>
+
+  <span class="tag">&lt;label&gt;</span>E-mail:<span class="tag">&lt;/label&gt;</span>
+  <span class="tag">&lt;br&gt;</span>
+  <span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"email"</span> <span class="attr">placeholder</span>=<span class="val">"voce@email.com"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;br&gt;&lt;br&gt;</span>
+
+  <span class="tag">&lt;button</span> <span class="attr">type</span>=<span class="val">"submit"</span><span class="tag">&gt;</span>Enviar<span class="tag">&lt;/button&gt;</span>
+
+<span class="tag">&lt;/form&gt;</span></pre>
+      <div class="tip"><span class="tip-icon">✅</span><span>Você deve ver o formulário sem estilo no painel de preview à direita. Feio, mas funcionando!</span></div>
+    </div>
+
+    <div class="step">
+      <span class="step-num">PASSO 2 — Mudar a fonte do body</span>
+      <h3>Aplicar uma fonte moderna</h3>
+      <p>Clique na caixa <strong>CSS</strong> e cole o código abaixo. Isso muda a fonte de <em>toda</em> a página.</p>
+      <pre><span class="sel">body</span> <span class="brace">{</span>
+  <span class="prop">font-family</span>: <span class="val">Arial, sans-serif</span>;
+  <span class="prop">font-size</span>: <span class="val">16px</span>;
+<span class="brace">}</span></pre>
+      <div class="tip"><span class="tip-icon">👀</span><span>Notou a diferença? A letra ficou mais limpa e uniforme! O seletor <code>body</code> afeta todos os elementos da página.</span></div>
+    </div>
+
+    <div class="step">
+      <span class="step-num">PASSO 3 — Cor de fundo</span>
+      <h3>Mudar o fundo da página</h3>
+      <p>Ainda no CSS, <strong>dentro do body { }</strong>, adicione a linha de background:</p>
+      <pre><span class="sel">body</span> <span class="brace">{</span>
+  <span class="prop">font-family</span>: <span class="val">Arial, sans-serif</span>;
+  <span class="prop">font-size</span>: <span class="val">16px</span>;
+  <span class="prop">background-color</span>: <span class="val">#e0f2fe</span>; <span class="cm">← adicione esta linha</span>
+<span class="brace">}</span></pre>
+      <div class="tip"><span class="tip-icon">🎨</span><span>O azul clarinho <code>#e0f2fe</code> deixa a página com um visual mais suave. Tente outros valores: <code>#f0fdf4</code> (verde claro) ou <code>#fef3c7</code> (amarelo claro).</span></div>
+    </div>
+
+    <div class="step">
+      <span class="step-num">PASSO 4 — Estilizar o título</span>
+      <h3>Deixar o h2 centralizado e bonito</h3>
+      <p>Após o fechamento do <code>body { }</code>, adicione um novo seletor para o h2:</p>
+      <pre><span class="sel">h2</span> <span class="brace">{</span>
+  <span class="prop">text-align</span>: <span class="val">center</span>;
+  <span class="prop">color</span>: <span class="val">#1e3a5f</span>;
+  <span class="prop">margin-bottom</span>: <span class="val">20px</span>;
+<span class="brace">}</span></pre>
+      <div class="tip"><span class="tip-icon">✅</span><span>Título centralizado e com cor escura combinando com o fundo azul!</span></div>
+    </div>
+
+    <div class="step">
+      <span class="step-num">PASSO 5 — Estilizar os labels</span>
+      <h3>Dar estilo aos rótulos dos campos</h3>
+      <p>Adicione mais um seletor para o label:</p>
+      <pre><span class="sel">label</span> <span class="brace">{</span>
+  <span class="prop">display</span>: <span class="val">block</span>;
+  <span class="prop">font-weight</span>: <span class="val">bold</span>;
+  <span class="prop">color</span>: <span class="val">#334155</span>;
+  <span class="prop">margin-bottom</span>: <span class="val">4px</span>;
+<span class="brace">}</span></pre>
+      <div class="warn"><span>⚠️</span><span><code>display: block</code> faz o label ocupar uma linha inteira, sem precisar do &lt;br&gt;! Mas no HTML mantemos o br por enquanto.</span></div>
+    </div>
+
+    <div class="step">
+      <span class="step-num">PASSO 6 — Estilizar os inputs</span>
+      <h3>Campos com borda e espaçamento</h3>
+      <p>Por último, dê estilo aos campos de texto:</p>
+      <pre><span class="sel">input</span> <span class="brace">{</span>
+  <span class="prop">width</span>: <span class="val">100%</span>;
+  <span class="prop">padding</span>: <span class="val">8px 12px</span>;
+  <span class="prop">border</span>: <span class="val">1px solid #94a3b8</span>;
+  <span class="prop">border-radius</span>: <span class="val">6px</span>;
+  <span class="prop">font-size</span>: <span class="val">15px</span>;
+  <span class="prop">margin-bottom</span>: <span class="val">12px</span>;
+<span class="brace">}</span></pre>
+      <div class="tip"><span class="tip-icon">🎉</span><span>Parabéns! O formulário agora tem cara de projeto de verdade! Compare com o início — que diferença!</span></div>
+    </div>
+
+    <div class="checkpoint">
+      <h3>🏁 Checkpoint — Seu CSS completo deve ficar assim:</h3>
+      <p style="font-size:.84rem;color:var(--muted)">Se estiver diferente, confira linha por linha com calma</p>
+      <pre style="text-align:left;margin-top:12px"><span class="sel">body</span> <span class="brace">{</span>
+  <span class="prop">font-family</span>: <span class="val">Arial, sans-serif</span>;
+  <span class="prop">font-size</span>: <span class="val">16px</span>;
+  <span class="prop">background-color</span>: <span class="val">#e0f2fe</span>;
+<span class="brace">}</span>
+
+<span class="sel">h2</span> <span class="brace">{</span>
+  <span class="prop">text-align</span>: <span class="val">center</span>;
+  <span class="prop">color</span>: <span class="val">#1e3a5f</span>;
+  <span class="prop">margin-bottom</span>: <span class="val">20px</span>;
+<span class="brace">}</span>
+
+<span class="sel">label</span> <span class="brace">{</span>
+  <span class="prop">display</span>: <span class="val">block</span>;
+  <span class="prop">font-weight</span>: <span class="val">bold</span>;
+  <span class="prop">color</span>: <span class="val">#334155</span>;
+  <span class="prop">margin-bottom</span>: <span class="val">4px</span>;
+<span class="brace">}</span>
+
+<span class="sel">input</span> <span class="brace">{</span>
+  <span class="prop">width</span>: <span class="val">100%</span>;
+  <span class="prop">padding</span>: <span class="val">8px 12px</span>;
+  <span class="prop">border</span>: <span class="val">1px solid #94a3b8</span>;
+  <span class="prop">border-radius</span>: <span class="val">6px</span>;
+  <span class="prop">font-size</span>: <span class="val">15px</span>;
+  <span class="prop">margin-bottom</span>: <span class="val">12px</span>;
+<span class="brace">}</span></pre>
+    </div>
+  </section>
+
+  <section>
+    <h2>🎮 Quiz — Lab 1</h2>
+    <div class="quiz-wrap">
+      <div class="quiz-header">
+        <h3>10 perguntas · CSS Prático</h3>
+        <span class="score-display" id="score4b">Pontos: 0</span>
+      </div>
+      <div class="quiz-progress"><div class="quiz-progress-bar" id="pb4b" style="width:0%"></div></div>
+      <div id="quiz4b"></div>
+    </div>
+  </section>
+
+  <div class="nav-aulas">
+    <a href="aula4a.html" class="btn-nav">← Teoria CSS</a>
+    <a href="aula4c.html" class="btn-nav primary">🎨 Lab 2: Card Completo →</a>
+  </div>
+</main>
+<footer><p>Desenvolvimento WEB · 2º Ano A · Prof. <span>Claudio Amado</span> · 2026</p></footer>
+
+<script>
+const qs4b=[
+  {q:"No CodePen, em qual caixa você escreve o CSS?",opts:["Na caixa HTML","Na caixa JS","Na caixa CSS","No painel de preview"],c:2},
+  {q:"O seletor 'body' afeta quais elementos?",opts:["Apenas o texto","Apenas os inputs","Todos os elementos da página","Apenas os títulos"],c:2},
+  {q:"Qual propriedade muda o fundo da página?",opts:["color","background-color","page-color","fill"],c:1},
+  {q:"O que 'display: block' faz no label?",opts:["Esconde o label","Faz o label ocupar uma linha inteira","Coloca o label em negrito","Aumenta o label"],c:1},
+  {q:"Para centralizar um título h2, usamos:",opts:["font-align: center","center: true","text-align: center","align: middle"],c:2},
+  {q:"O que 'padding: 8px 12px' significa?",opts:["8px de fora, 12px de dentro","8px em cima/baixo, 12px nos lados","12px em cima/baixo, 8px nos lados","8px de largura, 12px de altura"],c:1},
+  {q:"Qual a ordem certa dos passos no laboratório?",opts:["Fundo → Fonte → Inputs → Labels","Fonte → Fundo → Título → Labels → Inputs","Inputs → Título → Fundo → Fonte","Qualquer ordem funciona"],c:1},
+  {q:"Por que usar 'width: 100%' no input?",opts:["Para esconder o input","Para o campo ocupar toda a largura disponível","Para deixar o texto maior","Para mudar a cor"],c:1},
+  {q:"border-radius: 6px nos inputs cria:",opts:["Uma borda colorida","Cantos arredondados","Uma sombra","Um fundo diferente"],c:1},
+  {q:"Se o CSS não está funcionando, o que você deve verificar primeiro?",opts:["Reiniciar o computador","Trocar o navegador","Conferir os {} e ; do código","Pedir um novo computador"],c:2}
+];
+let cur=0,pts=0;
+const div=document.getElementById('quiz4b');
+function render(){
+  if(cur>=qs4b.length){
+    div.innerHTML=`<div class="quiz-result"><div class="big-score" style="color:${pts>=7?'#34d399':pts>=5?'#fbbf24':'#ef4444'}">${pts}/10</div><p>${pts>=8?'🏆 Ótimo trabalho no lab!':pts>=6?'👍 Bom! Parte para o Lab 2.':'💪 Revise os passos e tente de novo.'}</p><button onclick="cur=0;pts=0;render()">Tentar de novo</button></div>`;
+    document.getElementById('score4b').textContent='Pontos: '+pts;
+    return;
+  }
+  document.getElementById('pb4b').style.width=((cur/qs4b.length)*100)+'%';
+  const q=qs4b[cur];
+  div.innerHTML=`<div class="question" style="animation:fadeIn .3s ease"><p>❓ ${cur+1}/10 — ${q.q}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="ans(${i},${q.c})">${o}</button>`).join('')}</div><div class="feedback" id="fb4b"></div></div>`;
+}
+function ans(i,c){
+  const btns=div.querySelectorAll('.opt-btn');
+  btns.forEach(b=>b.disabled=true);
+  if(i===c){pts++;btns[i].classList.add('correct');document.getElementById('fb4b').textContent='✓ Correto!';document.getElementById('fb4b').className='feedback ok';}
+  else{btns[i].classList.add('wrong');btns[c].classList.add('correct');document.getElementById('fb4b').textContent='✗ Resposta: '+qs4b[cur].opts[c];document.getElementById('fb4b').className='feedback no';}
+  document.getElementById('score4b').textContent='Pontos: '+pts;
+  setTimeout(()=>{cur++;render();},1600);
+}
+render();
+</script>
+</body>
+</html>

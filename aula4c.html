@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 4C – Lab 2: Card Completo | Desenvolvimento WEB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0a0e1a;--surface:#111827;--card:#1a2235;--border:#2a3a55;--accent:#f97316;--accent2:#fb923c;--text:#e2e8f0;--muted:#64748b;--code-bg:#0d1b2a;--green:#34d399}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 50% at 10% 80%,rgba(249,115,22,.07) 0%,transparent 60%);pointer-events:none;z-index:0}
+    nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .nav-back{color:var(--accent);text-decoration:none;font-family:'Space Mono',monospace;font-size:11px;transition:opacity .2s}
+    .nav-back:hover{opacity:.7}
+    .nav-sep{color:var(--muted)}
+    .nav-title{font-size:.9rem;color:var(--text);font-weight:600}
+    .nav-badge{background:rgba(249,115,22,.12);color:var(--accent);border:1px solid rgba(249,115,22,.3);font-family:'Space Mono',monospace;font-size:10px;padding:3px 10px;border-radius:4px;margin-left:auto}
+    header{position:relative;z-index:1;padding:48px 24px 32px;max-width:860px;margin:0 auto}
+    .tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+    .tag{font-family:'Space Mono',monospace;font-size:10px;padding:4px 10px;border-radius:4px;letter-spacing:1px;font-weight:700}
+    .tag-lab{background:rgba(249,115,22,.1);color:var(--accent);border:1px solid rgba(249,115,22,.3)}
+    .tag-final{background:rgba(52,211,153,.1);color:var(--green);border:1px solid rgba(52,211,153,.3)}
+    .tag-time{background:rgba(56,189,248,.1);color:#38bdf8;border:1px solid rgba(56,189,248,.3)}
+    h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;line-height:1.2;margin-bottom:12px}
+    .subtitle{font-size:1rem;color:var(--muted);line-height:1.6}
+    main{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:0 24px 80px}
+    section{margin-bottom:40px}
+    h2{font-size:1.2rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+    p{line-height:1.7;color:var(--muted);margin-bottom:12px}
+    p strong{color:var(--text)}
+    code{font-family:'Space Mono',monospace;background:var(--code-bg);border:1px solid var(--border);padding:2px 7px;border-radius:4px;font-size:.82em;color:#fdba74}
+    /* Platform */
+    .platform-box{background:linear-gradient(135deg,rgba(249,115,22,.08),rgba(251,146,60,.06));border:2px solid rgba(249,115,22,.3);border-radius:16px;padding:24px;margin:24px 0;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+    .plat-icon{font-size:2.5rem}
+    .plat-info h3{font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:6px}
+    .plat-info p{font-size:.88rem;color:var(--muted);margin-bottom:10px}
+    .plat-link{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:8px 20px;border-radius:8px;font-weight:700;font-size:.88rem;font-family:'Outfit',sans-serif}
+    /* Result preview */
+    .result-preview{background:#1a2040;border-radius:12px;overflow:hidden;margin:16px 0}
+    .browser-bar{background:#0d1117;padding:10px 16px;display:flex;align-items:center;gap:8px}
+    .dot{width:10px;height:10px;border-radius:50%}
+    .d1{background:#ff5f57}.d2{background:#febc2e}.d3{background:#28c840}
+    .result-preview .content{padding:20px}
+    /* Steps */
+    .step{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px;position:relative}
+    .step-num{position:absolute;top:-12px;left:20px;background:var(--accent);color:#fff;font-family:'Space Mono',monospace;font-size:.78rem;font-weight:700;padding:3px 12px;border-radius:99px}
+    .step h3{font-size:1rem;font-weight:700;margin-bottom:12px;margin-top:8px}
+    .step p{font-size:.88rem;color:var(--muted);margin-bottom:10px;line-height:1.7}
+    .step p strong{color:var(--text)}
+    pre{background:var(--code-bg);border:1px solid var(--border);border-radius:10px;padding:16px;overflow-x:auto;margin:10px 0;font-family:'Space Mono',monospace;font-size:.8rem;line-height:1.8;white-space:pre}
+    pre .tag{color:#38bdf8}
+    pre .attr{color:#7dd3fc}
+    pre .val{color:#c3e88d}
+    pre .cm{color:#546e7a;font-style:italic}
+    pre .sel{color:#f97316}
+    pre .prop{color:#c792ea}
+    pre .brace{color:#64748b}
+    .tip{background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.25);border-radius:8px;padding:12px 16px;font-size:.84rem;color:var(--text);margin:10px 0;display:flex;gap:10px;align-items:flex-start}
+    .challenge{background:rgba(249,115,22,.06);border:1px solid rgba(249,115,22,.25);border-radius:8px;padding:12px 16px;font-size:.84rem;color:var(--text);margin:10px 0;display:flex;gap:10px;align-items:flex-start}
+    .checkpoint{background:var(--surface);border:2px solid var(--accent);border-radius:12px;padding:20px;margin:20px 0}
+    .checkpoint h3{color:var(--accent);font-size:1rem;margin-bottom:12px}
+    /* Quiz */
+    .quiz-wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px}
+    .quiz-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+    .quiz-header h3{font-size:1.1rem;font-weight:700}
+    .score-display{font-family:'Space Mono',monospace;font-size:.9rem;color:var(--accent)}
+    .question p{color:var(--text);font-weight:600;margin-bottom:12px}
+    .options{display:grid;gap:8px}
+    .opt-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);text-align:left;cursor:pointer;font-size:.88rem;font-family:'Outfit',sans-serif;transition:all .2s}
+    .opt-btn:hover{background:rgba(249,115,22,.08);border-color:rgba(249,115,22,.4)}
+    .opt-btn.correct{background:rgba(52,211,153,.15);border-color:#34d399;color:#34d399}
+    .opt-btn.wrong{background:rgba(239,68,68,.1);border-color:#ef4444;color:#ef4444}
+    .opt-btn:disabled{cursor:default}
+    .feedback{font-size:.85rem;margin-top:8px;font-weight:600}
+    .feedback.ok{color:#34d399}.feedback.no{color:#ef4444}
+    .quiz-progress{height:6px;background:var(--surface);border-radius:99px;margin-bottom:20px;overflow:hidden}
+    .quiz-progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width .4s ease}
+    .quiz-result{text-align:center;padding:20px}
+    .quiz-result .big-score{font-size:3.5rem;font-weight:800;font-family:'Space Mono',monospace}
+    .quiz-result button{margin-top:20px;background:var(--accent);color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif}
+    .final-box{background:linear-gradient(135deg,rgba(52,211,153,.1),rgba(56,189,248,.08));border:2px solid rgba(52,211,153,.3);border-radius:16px;padding:28px;text-align:center;margin:32px 0}
+    .final-box h3{font-size:1.3rem;color:var(--green);margin-bottom:12px}
+    .final-box p{color:var(--muted);margin-bottom:16px}
+    .nav-aulas{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-nav{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;font-size:.9rem;text-decoration:none;transition:all .2s;border:1px solid var(--border);color:var(--text);background:var(--card)}
+    .btn-nav:hover{border-color:var(--accent);color:var(--accent)}
+    .btn-nav.primary{background:var(--green);color:#0a1a0e;border-color:var(--green)}
+    .btn-nav.primary:hover{opacity:.85}
+    footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);font-family:'Space Mono',monospace}
+    footer span{color:var(--accent)}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-back">← Menu</a>
+  <span class="nav-sep">·</span>
+  <a href="aula4a.html" class="nav-back">4A: Teoria</a>
+  <span class="nav-sep">·</span>
+  <a href="aula4b.html" class="nav-back">4B: Lab 1</a>
+  <span class="nav-sep">·</span>
+  <span class="nav-title">Aula 4C — Lab 2</span>
+  <span class="nav-badge">🎨 LAB FINAL · 29/05</span>
+</nav>
+<header>
+  <div class="tag-row">
+    <span class="tag tag-lab">🎨 Laboratório 2 — Avançado</span>
+    <span class="tag tag-final">✨ Card Completo</span>
+    <span class="tag tag-time">⏱ 50 min</span>
+  </div>
+  <h1>Lab 2: Card do Formulário Completo</h1>
+  <p class="subtitle">Agora vamos juntar tudo! Neste laboratório você vai criar um formulário dentro de um <strong>card centralizado</strong> — com sombra, borda arredondada e botão estilizado. O resultado final vai impressionar!</p>
+</header>
+<main>
+
+  <div class="platform-box">
+    <span class="plat-icon">🌐</span>
+    <div class="plat-info">
+      <h3>Use o CodePen — pode continuar o do Lab 1 ou abrir um novo!</h3>
+      <p>Se preferir começar do zero: abra uma nova aba do CodePen. Se quiser continuar de onde parou no Lab 1, é ainda melhor!</p>
+      <a class="plat-link" href="https://codepen.io/pen/" target="_blank">▶ Abrir CodePen novo</a>
+    </div>
+  </div>
+
+  <section>
+    <h2>🎯 Resultado final desta aula</h2>
+    <div class="result-preview">
+      <div class="browser-bar"><div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div><span style="font-size:.75rem;color:#546e7a;margin-left:8px">codepen.io — resultado do Lab 2</span></div>
+      <div class="content">
+        <div style="min-height:280px;background:linear-gradient(135deg,#e0f2fe,#ddd6fe);display:flex;align-items:center;justify-content:center;padding:20px;border-radius:8px">
+          <div style="background:#fff;border-radius:16px;padding:28px;width:100%;max-width:380px;box-shadow:0 8px 32px rgba(0,0,0,0.12)">
+            <h2 style="text-align:center;color:#1e3a5f;font-size:1.2rem;margin-bottom:20px;font-family:'Outfit',sans-serif">📝 Ficha do Aluno</h2>
+            <div style="margin-bottom:14px"><label style="display:block;font-size:.82rem;font-weight:700;color:#334155;margin-bottom:4px;font-family:'Outfit',sans-serif">Nome Completo</label><input type="text" placeholder="Seu nome" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:.9rem;font-family:'Outfit',sans-serif;color:#1e293b;outline:none"></div>
+            <div style="margin-bottom:14px"><label style="display:block;font-size:.82rem;font-weight:700;color:#334155;margin-bottom:4px;font-family:'Outfit',sans-serif">Turma</label><input type="text" placeholder="Ex: 2A" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:.9rem;font-family:'Outfit',sans-serif;color:#1e293b;outline:none"></div>
+            <div style="margin-bottom:20px"><label style="display:block;font-size:.82rem;font-weight:700;color:#334155;margin-bottom:4px;font-family:'Outfit',sans-serif">E-mail</label><input type="email" placeholder="voce@email.com" style="width:100%;padding:10px 14px;border:2px solid #e2e8f0;border-radius:8px;font-size:.9rem;font-family:'Outfit',sans-serif;color:#1e293b;outline:none"></div>
+            <button style="width:100%;background:linear-gradient(90deg,#3b82f6,#6366f1);color:#fff;border:none;padding:12px;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif">Enviar Ficha →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>📋 Passos do Laboratório 2</h2>
+
+    <div class="step">
+      <span class="step-num">PASSO 1 — HTML com classe</span>
+      <h3>Estrutura HTML usando a classe "card"</h3>
+      <p>No Lab 1 usamos tags soltas. Hoje vamos usar uma <strong>classe CSS</strong> — isso é muito mais poderoso! Cole no HTML:</p>
+      <pre><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"card"</span><span class="tag">&gt;</span>
+
+  <span class="tag">&lt;h2&gt;</span>📝 Ficha do Aluno<span class="tag">&lt;/h2&gt;</span>
+
+  <span class="tag">&lt;form&gt;</span>
+
+    <span class="tag">&lt;label&gt;</span>Nome Completo:<span class="tag">&lt;/label&gt;</span>
+    <span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"text"</span> <span class="attr">placeholder</span>=<span class="val">"Seu nome"</span> <span class="attr">required</span><span class="tag">&gt;</span>
+
+    <span class="tag">&lt;label&gt;</span>Turma:<span class="tag">&lt;/label&gt;</span>
+    <span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"text"</span> <span class="attr">placeholder</span>=<span class="val">"Ex: 2A"</span> <span class="attr">required</span><span class="tag">&gt;</span>
+
+    <span class="tag">&lt;label&gt;</span>E-mail:<span class="tag">&lt;/label&gt;</span>
+    <span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"email"</span> <span class="attr">placeholder</span>=<span class="val">"voce@email.com"</span> <span class="attr">required</span><span class="tag">&gt;</span>
+
+    <span class="tag">&lt;button</span> <span class="attr">type</span>=<span class="val">"submit"</span><span class="tag">&gt;</span>Enviar Ficha →<span class="tag">&lt;/button&gt;</span>
+
+  <span class="tag">&lt;/form&gt;</span>
+
+<span class="tag">&lt;/div&gt;</span></pre>
+      <div class="tip"><span>💡</span><span>Percebeu que não usamos mais &lt;br&gt;? O CSS vai cuidar dos espaçamentos!</span></div>
+    </div>
+
+    <div class="step">
+      <span class="step-num">PASSO 2 — Fundo da página</span>
+      <h3>Centralizar e dar fundo gradiente</h3>
+      <p>Na caixa CSS, comece com o body — vamos usar um gradiente de fundo e centralizar o card:</p>
+      <pre><span class="sel">body</span> <span class="brace">{</span>
+  <span class="prop">font-family</span>: <span class="val">Arial, sans-serif</span>;
+  <span class="cm">/* gradiente de fundo: 2 cores que misturam */</span>
+  <span class="prop">background</span>: <span class="val">linear-gradient(135deg, #e0f2fe, #ddd6fe)</span>;
+  <span class="prop">min-height</span>: <span class="val">100vh</span>;
+  <span class="cm">/* estes 3 juntos = centralizar na tela */</span>
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">align-items</span>: <span class="val">center</span>;
+  <span class="prop">justify-content</span>: <span class="val">center</span>;
+<span class="brace">}</span></pre>
+      <div class="tip"><span>🎨</span><span><code>linear-gradient</code> mistura duas cores criando um degradê. <code>display: flex</code> é o truque para centralizar o card na tela!</span></div>
+    </div>
+
+    <div class="step">
+      <span class="step-num">PASSO 3 — O card branco</span>
+      <h3>Criar a "cartinha" com sombra</h3>
+      <p>Adicione o seletor <code>.card</code> (com ponto = classe CSS):</p>
+      <pre><span class="sel">.card</span> <span class="brace">{</span>
+  <span class="prop">background</span>: <span class="val">#ffffff</span>;
+  <span class="prop">border-radius</span>: <span class="val">16px</span>;
+  <span class="prop">padding</span>: <span class="val">32px</span>;
+  <span class="prop">width</span>: <span class="val">100%</span>;
+  <span class="prop">max-width</span>: <span class="val">400px</span>;
+  <span class="cm">/* sombra: deslocX deslocY blur cor */</span>
+  <span class="prop">box-shadow</span>: <span class="val">0 8px 32px rgba(0, 0, 0, 0.12)</span>;
+<span class="brace">}</span></pre>
+      <div class="tip"><span>✅</span><span>Você deve ver um card branco centralizado na tela. Está tomando forma!</span></div>
+    </div>
+
+    <div class="step">
+      <span class="step-num">PASSO 4 — Título do card</span>
+      <h3>Estilizar o h2 dentro do card</h3>
+      <pre><span class="sel">h2</span> <span class="brace">{</span>
+  <span class="prop">text-align</span>: <span class="val">center</span>;
+  <span class="prop">color</span>: <span class="val">#1e3a5f</span>;
+  <span class="prop">font-size</span>: <span class="val">1.3rem</span>;
+  <span class="prop">margin-bottom</span>: <span class="val">24px</span>;
+<span class="brace">}</span></pre>
+    </div>
+
+    <div class="step">
+      <span class="step-num">PASSO 5 — Labels e Inputs</span>
+      <h3>Campos com espaçamento perfeito</h3>
+      <pre><span class="sel">label</span> <span class="brace">{</span>
+  <span class="prop">display</span>: <span class="val">block</span>;
+  <span class="prop">font-size</span>: <span class="val">0.85rem</span>;
+  <span class="prop">font-weight</span>: <span class="val">bold</span>;
+  <span class="prop">color</span>: <span class="val">#334155</span>;
+  <span class="prop">margin-bottom</span>: <span class="val">4px</span>;
+  <span class="prop">margin-top</span>: <span class="val">14px</span>;
+<span class="brace">}</span>
+
+<span class="sel">input</span> <span class="brace">{</span>
+  <span class="prop">width</span>: <span class="val">100%</span>;
+  <span class="prop">padding</span>: <span class="val">10px 14px</span>;
+  <span class="prop">border</span>: <span class="val">2px solid #e2e8f0</span>;
+  <span class="prop">border-radius</span>: <span class="val">8px</span>;
+  <span class="prop">font-size</span>: <span class="val">0.95rem</span>;
+  <span class="prop">color</span>: <span class="val">#1e293b</span>;
+  <span class="cm">/* box-sizing garante que width:100% não ultrapasse */</span>
+  <span class="prop">box-sizing</span>: <span class="val">border-box</span>;
+<span class="brace">}</span></pre>
+    </div>
+
+    <div class="step">
+      <span class="step-num">PASSO 6 — Botão com gradiente</span>
+      <h3>O botão que vai impressionar!</h3>
+      <pre><span class="sel">button</span> <span class="brace">{</span>
+  <span class="prop">width</span>: <span class="val">100%</span>;
+  <span class="prop">margin-top</span>: <span class="val">20px</span>;
+  <span class="prop">padding</span>: <span class="val">12px</span>;
+  <span class="prop">background</span>: <span class="val">linear-gradient(90deg, #3b82f6, #6366f1)</span>;
+  <span class="prop">color</span>: <span class="val">#ffffff</span>;
+  <span class="prop">border</span>: <span class="val">none</span>;
+  <span class="prop">border-radius</span>: <span class="val">10px</span>;
+  <span class="prop">font-size</span>: <span class="val">1rem</span>;
+  <span class="prop">font-weight</span>: <span class="val">bold</span>;
+  <span class="prop">cursor</span>: <span class="val">pointer</span>;
+<span class="brace">}</span></pre>
+      <div class="tip"><span>🎉</span><span>Pronto! Compare com o início — você criou um formulário com visual profissional usando apenas CSS!</span></div>
+    </div>
+
+    <div class="challenge">
+      <span>🚀</span>
+      <div>
+        <strong>Desafio extra (se terminar antes):</strong> Adicione ao CSS do input:
+        <code>transition: border-color 0.2s;</code> e depois crie <code>input:focus { border-color: #3b82f6; outline: none; }</code> — ao clicar no campo, a borda vai ficar azul!
+      </div>
+    </div>
+
+    <div class="checkpoint">
+      <h3>🏁 CSS completo do Lab 2</h3>
+      <pre style="text-align:left"><span class="sel">body</span> <span class="brace">{</span>
+  <span class="prop">font-family</span>: <span class="val">Arial, sans-serif</span>;
+  <span class="prop">background</span>: <span class="val">linear-gradient(135deg, #e0f2fe, #ddd6fe)</span>;
+  <span class="prop">min-height</span>: <span class="val">100vh</span>;
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">align-items</span>: <span class="val">center</span>;
+  <span class="prop">justify-content</span>: <span class="val">center</span>;
+<span class="brace">}</span>
+
+<span class="sel">.card</span> <span class="brace">{</span>
+  <span class="prop">background</span>: <span class="val">#ffffff</span>;
+  <span class="prop">border-radius</span>: <span class="val">16px</span>;
+  <span class="prop">padding</span>: <span class="val">32px</span>;
+  <span class="prop">width</span>: <span class="val">100%</span>;
+  <span class="prop">max-width</span>: <span class="val">400px</span>;
+  <span class="prop">box-shadow</span>: <span class="val">0 8px 32px rgba(0,0,0,0.12)</span>;
+<span class="brace">}</span>
+
+<span class="sel">h2</span> <span class="brace">{</span>
+  <span class="prop">text-align</span>: <span class="val">center</span>;
+  <span class="prop">color</span>: <span class="val">#1e3a5f</span>;
+  <span class="prop">font-size</span>: <span class="val">1.3rem</span>;
+  <span class="prop">margin-bottom</span>: <span class="val">24px</span>;
+<span class="brace">}</span>
+
+<span class="sel">label</span> <span class="brace">{</span>
+  <span class="prop">display</span>: <span class="val">block</span>;
+  <span class="prop">font-size</span>: <span class="val">0.85rem</span>;
+  <span class="prop">font-weight</span>: <span class="val">bold</span>;
+  <span class="prop">color</span>: <span class="val">#334155</span>;
+  <span class="prop">margin-bottom</span>: <span class="val">4px</span>;
+  <span class="prop">margin-top</span>: <span class="val">14px</span>;
+<span class="brace">}</span>
+
+<span class="sel">input</span> <span class="brace">{</span>
+  <span class="prop">width</span>: <span class="val">100%</span>;
+  <span class="prop">padding</span>: <span class="val">10px 14px</span>;
+  <span class="prop">border</span>: <span class="val">2px solid #e2e8f0</span>;
+  <span class="prop">border-radius</span>: <span class="val">8px</span>;
+  <span class="prop">font-size</span>: <span class="val">0.95rem</span>;
+  <span class="prop">color</span>: <span class="val">#1e293b</span>;
+  <span class="prop">box-sizing</span>: <span class="val">border-box</span>;
+<span class="brace">}</span>
+
+<span class="sel">button</span> <span class="brace">{</span>
+  <span class="prop">width</span>: <span class="val">100%</span>;
+  <span class="prop">margin-top</span>: <span class="val">20px</span>;
+  <span class="prop">padding</span>: <span class="val">12px</span>;
+  <span class="prop">background</span>: <span class="val">linear-gradient(90deg, #3b82f6, #6366f1)</span>;
+  <span class="prop">color</span>: <span class="val">#ffffff</span>;
+  <span class="prop">border</span>: <span class="val">none</span>;
+  <span class="prop">border-radius</span>: <span class="val">10px</span>;
+  <span class="prop">font-size</span>: <span class="val">1rem</span>;
+  <span class="prop">font-weight</span>: <span class="val">bold</span>;
+  <span class="prop">cursor</span>: <span class="val">pointer</span>;
+<span class="brace">}</span></pre>
+    </div>
+  </section>
+
+  <section>
+    <h2>🎮 Quiz — Lab 2 (Final da aula!)</h2>
+    <div class="quiz-wrap">
+      <div class="quiz-header">
+        <h3>10 perguntas · CSS Card</h3>
+        <span class="score-display" id="score4c">Pontos: 0</span>
+      </div>
+      <div class="quiz-progress"><div class="quiz-progress-bar" id="pb4c" style="width:0%"></div></div>
+      <div id="quiz4c"></div>
+    </div>
+  </section>
+
+  <div class="final-box">
+    <h3>🏆 Parabéns! Aula completa!</h3>
+    <p>Hoje você aprendeu CSS básico, estilizou fonte e fundo, e criou um card de formulário profissional. Na próxima aula vamos criar navegação entre páginas com links!</p>
+    <div class="nav-aulas" style="justify-content:center">
+      <a href="aula4b.html" class="btn-nav">← Lab 1</a>
+      <a href="index.html" class="btn-nav primary">✓ Voltar ao Menu</a>
+    </div>
+  </div>
+</main>
+<footer><p>Desenvolvimento WEB · 2º Ano A · Prof. <span>Claudio Amado</span> · 2026</p></footer>
+
+<script>
+const qs4c=[
+  {q:"Como se chama o seletor de CLASSE em CSS?",opts:["#nomeclasse","nomeclasse","&nomeclasse",".nomeclasse"],c:3},
+  {q:"O que faz 'display: flex' no body?",opts:["Torna o texto em negrito","Esconde o formulário","Habilita o sistema de layout flexível (centralização)","Muda a fonte"],c:2},
+  {q:"O que é 'linear-gradient(135deg, #e0f2fe, #ddd6fe)' ?",opts:["Uma fonte especial","Um degradê entre duas cores","Uma sombra","Uma borda"],c:1},
+  {q:"Para que serve 'box-shadow'?",opts:["Mudar o tamanho da caixa","Adicionar sombra ao redor do elemento","Esconder o elemento","Mudar a cor do texto"],c:1},
+  {q:"O que 'max-width: 400px' faz no card?",opts:["Limita a largura máxima a 400px mesmo em telas grandes","Impede o card de aparecer","Define a altura","Centraliza o card"],c:0},
+  {q:"Por que usamos 'box-sizing: border-box' no input?",opts:["Para mudar a cor da borda","Para garantir que width:100% não ultrapasse o card","Para esconder o placeholder","Para deixar a fonte maior"],c:1},
+  {q:"Qual valor de 'cursor' indica que o botão é clicável?",opts:["pointer","hand","click","auto"],c:0},
+  {q:"'border: none' no button faz o quê?",opts:["Remove a cor do botão","Remove a borda padrão do botão","Esconde o botão","Aumenta o botão"],c:1},
+  {q:"Para que serve 'align-items: center' no body?",opts:["Centraliza o texto","Centraliza os elementos verticalmente (no flex)","Remove as margens","Muda a cor do fundo"],c:1},
+  {q:"Qual é a diferença entre border-radius: 8px e border-radius: 50%?",opts:["Não há diferença","8px = cantos levemente arredondados; 50% = círculo","8px = círculo; 50% = quadrado","Apenas 50% funciona nos inputs"],c:1}
+];
+let cur=0,pts=0;
+const div=document.getElementById('quiz4c');
+function render(){
+  if(cur>=qs4c.length){
+    div.innerHTML=`<div class="quiz-result"><div class="big-score" style="color:${pts>=7?'#34d399':pts>=5?'#fbbf24':'#ef4444'}">${pts}/10</div><p>${pts>=8?'🏆 Incrível! Você dominou o Lab 2!':pts>=6?'👍 Ótimo! Revise os erros.':'💪 Revise os passos e tente de novo!'}</p><button onclick="cur=0;pts=0;render()">Tentar de novo</button></div>`;
+    document.getElementById('score4c').textContent='Pontos: '+pts;
+    return;
+  }
+  document.getElementById('pb4c').style.width=((cur/qs4c.length)*100)+'%';
+  const q=qs4c[cur];
+  div.innerHTML=`<div class="question" style="animation:fadeIn .3s ease"><p>❓ ${cur+1}/10 — ${q.q}</p><div class="options">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="ans(${i},${q.c})">${o}</button>`).join('')}</div><div class="feedback" id="fb4c"></div></div>`;
+}
+function ans(i,c){
+  const btns=div.querySelectorAll('.opt-btn');
+  btns.forEach(b=>b.disabled=true);
+  if(i===c){pts++;btns[i].classList.add('correct');document.getElementById('fb4c').textContent='✓ Correto!';document.getElementById('fb4c').className='feedback ok';}
+  else{btns[i].classList.add('wrong');btns[c].classList.add('correct');document.getElementById('fb4c').textContent='✗ Resposta: '+qs4c[cur].opts[c];document.getElementById('fb4c').className='feedback no';}
+  document.getElementById('score4c').textContent='Pontos: '+pts;
+  setTimeout(()=>{cur++;render();},1600);
+}
+render();
+</script>
+</body>
+</html>
