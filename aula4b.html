@@ -66,8 +66,8 @@
     .score-display{font-family:'Space Mono',monospace;font-size:.9rem;color:var(--accent)}
     .question p{color:var(--text);font-weight:600;margin-bottom:12px}
     .options{display:grid;gap:8px}
-    .opt-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);text-align:left;cursor:pointer;font-size:.88rem;font-family:'Outfit',sans-serif;transition:all .2s}
-    .opt-btn:hover{background:rgba(129,140,248,.08);border-color:rgba(129,140,248,.4)}
+    .opt-btn{background:#1e2d45;border:2px solid #2a3a55;border-radius:8px;padding:12px 16px;color:#e2e8f0;text-align:left;cursor:pointer;font-size:.92rem;font-family:'Outfit',sans-serif;transition:all .2s;font-weight:500}
+    .opt-btn:hover{background:rgba(129,140,248,.18);border-color:#818cf8}
     .opt-btn.correct{background:rgba(52,211,153,.15);border-color:#34d399;color:#34d399}
     .opt-btn.wrong{background:rgba(239,68,68,.1);border-color:#ef4444;color:#ef4444}
     .opt-btn:disabled{cursor:default}
@@ -288,7 +288,7 @@ const qs4b=[
   {q:"Qual propriedade muda o fundo da página?",opts:["color","background-color","page-color","fill"],c:1},
   {q:"O que 'display: block' faz no label?",opts:["Esconde o label","Faz o label ocupar uma linha inteira","Coloca o label em negrito","Aumenta o label"],c:1},
   {q:"Para centralizar um título h2, usamos:",opts:["font-align: center","center: true","text-align: center","align: middle"],c:2},
-  {q:"O que 'padding: 8px 12px' significa?",opts:["8px de fora, 12px de dentro","8px em cima/baixo, 12px nos lados","12px em cima/baixo, 8px nos lados","8px de largura, 12px de altura"],c:1},
+  {q:"O que significa padding: 8px 12px?",opts:["8px de fora, 12px de dentro","8px em cima/baixo e 12px nos lados","12px em cima/baixo e 8px nos lados","8px de largura e 12px de altura"],c:1},
   {q:"Qual a ordem certa dos passos no laboratório?",opts:["Fundo → Fonte → Inputs → Labels","Fonte → Fundo → Título → Labels → Inputs","Inputs → Título → Fundo → Fonte","Qualquer ordem funciona"],c:1},
   {q:"Por que usar 'width: 100%' no input?",opts:["Para esconder o input","Para o campo ocupar toda a largura disponível","Para deixar o texto maior","Para mudar a cor"],c:1},
   {q:"border-radius: 6px nos inputs cria:",opts:["Uma borda colorida","Cantos arredondados","Uma sombra","Um fundo diferente"],c:1},

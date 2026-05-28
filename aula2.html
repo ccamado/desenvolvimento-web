@@ -58,8 +58,8 @@
     .score-display{font-family:'Space Mono',monospace;font-size:.9rem;color:var(--accent)}
     .question p{color:var(--text);font-weight:600;margin-bottom:12px}
     .options{display:grid;gap:8px}
-    .opt-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);text-align:left;cursor:pointer;font-size:.88rem;font-family:'Outfit',sans-serif;transition:all .2s}
-    .opt-btn:hover{background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.4)}
+    .opt-btn{background:#1e2d45;border:2px solid #2a3a55;border-radius:8px;padding:12px 16px;color:#e2e8f0;text-align:left;cursor:pointer;font-size:.92rem;font-family:'Outfit',sans-serif;transition:all .2s;font-weight:500}
+    .opt-btn:hover{background:rgba(251,191,36,.18);border-color:#fbbf24}
     .opt-btn.correct{background:rgba(52,211,153,.15);border-color:#34d399;color:#34d399}
     .opt-btn.wrong{background:rgba(239,68,68,.1);border-color:#ef4444;color:#ef4444}
     .opt-btn:disabled{cursor:default}
@@ -202,16 +202,16 @@
 
 <script>
 const qs2 = [
-  {q:"Qual type você usaria para um campo de Idade?",opts:['"text"','"email"','"number"','"password"'],c:2},
+  {q:"Qual type você usaria para um campo de Idade?",opts:["text","email","number","password"],c:2},
   {q:"O type='email' aceita um texto sem o @?",opts:["Sim, aceita qualquer texto","Não, ele valida que existe @","Depende do navegador","Só aceita com .com"],c:1},
   {q:"O que o type='password' faz com o texto digitado?",opts:["Coloca em maiúsculas","Traduz para outro idioma","Esconde (mostra •••)","Coloriza em vermelho"],c:2},
   {q:"Para que serve o atributo placeholder?",opts:["Torna o campo obrigatório","Exibe uma dica dentro do campo que some ao digitar","Define a cor do campo","Nomeia o campo"],c:1},
   {q:"Qual atributo faz o campo ser obrigatório?",opts:["placeholder","mandatory","required","type"],c:2},
   {q:"Se um campo tem required e o usuário não preenche, o que acontece ao clicar em Enviar?",opts:["O formulário envia normalmente","O campo some da tela","O navegador avisa e não envia","Nada acontece"],c:2},
-  {q:"Qual tipo de input é melhor para capturar um e-mail?",opts:['"text"','"email"','"url"','"tel"'],c:1},
+  {q:"Qual tipo de input é melhor para capturar um e-mail?",opts:["text","email","url","tel"],c:1},
   {q:"O placeholder é visível quando o usuário digita algo no campo?",opts:["Sim, sempre aparece","Não, ele some quando o usuário começa a digitar","Só aparece depois de enviar","Aparece em vermelho"],c:1},
   {q:"Quantos atributos pode ter um único input?",opts:["Apenas 1","Apenas 2","Máximo 3","Vários! (type, placeholder, required, etc.)"],c:3},
-  {q:"type='number' impede que letras sejam digitadas no campo?",opts:["Não, aceita qualquer coisa","Sim, o navegador filtra apenas números","Apenas no celular","Apenas com required"],c:1}
+  {q:"O atributo type=number impede que letras sejam digitadas no campo?",opts:["Não, aceita qualquer coisa","Sim, o navegador filtra apenas números","Apenas no celular","Apenas com required"],c:1}
 ];
 let cur2=0,pts2=0;
 const div2=document.getElementById('quiz2');

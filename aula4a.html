@@ -71,8 +71,8 @@
     .score-display{font-family:'Space Mono',monospace;font-size:.9rem;color:var(--accent)}
     .question p{color:var(--text);font-weight:600;margin-bottom:12px}
     .options{display:grid;gap:8px}
-    .opt-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);text-align:left;cursor:pointer;font-size:.88rem;font-family:'Outfit',sans-serif;transition:all .2s}
-    .opt-btn:hover{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.4)}
+    .opt-btn{background:#1e2d45;border:2px solid #2a3a55;border-radius:8px;padding:12px 16px;color:#e2e8f0;text-align:left;cursor:pointer;font-size:.92rem;font-family:'Outfit',sans-serif;transition:all .2s;font-weight:500}
+    .opt-btn:hover{background:rgba(56,189,248,.18);border-color:#38bdf8}
     .opt-btn.correct{background:rgba(52,211,153,.15);border-color:#34d399;color:#34d399}
     .opt-btn.wrong{background:rgba(239,68,68,.1);border-color:#ef4444;color:#ef4444}
     .opt-btn:disabled{cursor:default}
@@ -326,9 +326,9 @@ const qs4a=[
   {q:"Qual propriedade arredonda os cantos de um elemento?",opts:["border-round","corner-radius","border-radius","rounded"],c:2},
   {q:"O que faz margin: 0 auto ?",opts:["Tira as margens","Centraliza o elemento horizontalmente","Aumenta o espaço interno","Remove o elemento da tela"],c:1},
   {q:"Qual a diferença entre padding e margin?",opts:["São a mesma coisa","Padding = espaço dentro; Margin = espaço fora","Margin = espaço dentro; Padding = espaço fora","Só margin funciona em formulários"],c:1},
-  {q:"Como se escreve um seletor CSS para h1?",opts:["[h1] { }","#h1 { }","h1 { }",".h1 { }"],c:2},
+  {q:"Como se escreve um seletor CSS para a tag h1?",opts:["[h1]","#h1","h1",".h1"],c:2},
   {q:"Qual forma de aplicar CSS é mais recomendada para iniciantes numa página?",opts:["Inline (style='' na tag)","Tag <style> no <head>","Escrita direto no input","No atributo name"],c:1},
-  {q:"O que font-size: 24px faz?",opts:["Define a espessura da letra","Muda a fonte para Arial","Define o tamanho da letra para 24 pixels","Coloca o texto em negrito"],c:2},
+  {q:"O que a propriedade font-size: 24px faz?",opts:["Define a espessura da letra","Muda a fonte para Arial","Define o tamanho da letra para 24 pixels","Coloca o texto em negrito"],c:2},
   {q:"Qual propriedade define a largura de um elemento?",opts:["size","height","wide","width"],c:3},
   {q:"O valor #f0f4ff é um exemplo de:",opts:["Nome de fonte","Cor no formato hexadecimal","Medida em pixels","Número de formulário"],c:1}
 ];
