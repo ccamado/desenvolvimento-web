@@ -320,6 +320,7 @@
 <footer><p>Desenvolvimento WEB · 2º Ano A · Prof. <span>Claudio Amado</span> · 2026</p></footer>
 
 <script>
+function escHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 const qs4a=[
   {q:"O que CSS faz em relação ao HTML?",opts:["Cria a estrutura da página","Define a aparência (visual) dos elementos","Armazena os dados no banco","Conecta à internet"],c:1},
   {q:"Qual propriedade CSS muda a cor do texto?",opts:["background-color","font-color","color","text-color"],c:2},

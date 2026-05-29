@@ -350,6 +350,7 @@
 <footer><p>Desenvolvimento WEB · 2º Ano A · Prof. <span>Claudio Amado</span> · 2026</p></footer>
 
 <script>
+function escHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 const qs4c=[
   {q:"Qual símbolo identifica um seletor de CLASSE em CSS?",opts:["# (hashtag)","sem símbolo","& (e comercial)",". (ponto)"],c:3},
   {q:"O que faz 'display: flex' no body?",opts:["Torna o texto em negrito","Esconde o formulário","Habilita o sistema de layout flexível (centralização)","Muda a fonte"],c:2},

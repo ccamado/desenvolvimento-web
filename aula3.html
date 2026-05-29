@@ -198,6 +198,7 @@
 <footer><p>Desenvolvimento WEB · 2º Ano A · Prof. <span>Claudio Amado</span> · 2026</p></footer>
 
 <script>
+function escHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 const qs3=[
   {q:"Qual campo permite escolher APENAS UMA opção entre várias?",opts:["checkbox","select","radio","text"],c:2},
   {q:"Qual campo permite marcar VÁRIAS opções ao mesmo tempo?",opts:["radio","select","text","checkbox"],c:3},

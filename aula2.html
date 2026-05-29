@@ -201,7 +201,8 @@
 <footer><p>Desenvolvimento WEB · 2º Ano A · Prof. <span>Claudio Amado</span> · 2026</p></footer>
 
 <script>
-const q2 = [
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+const qs2 = [
   {q:"Qual valor de TYPE você usaria para um campo de Idade?",opts:["text","email","number","password"],c:2},
   {q:"O type email aceita um texto digitado sem o símbolo @?",opts:["Sim, aceita qualquer texto","Não, ele exige o símbolo @","Depende do navegador","Só aceita endereços com .com"],c:1},
   {q:"O que o type password faz com o texto digitado pelo usuário?",opts:["Coloca em maiúsculas","Traduz para outro idioma","Esconde mostrando pontos","Colore em vermelho"],c:2},

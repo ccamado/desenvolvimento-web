@@ -282,6 +282,7 @@
 <footer><p>Desenvolvimento WEB · 2º Ano A · Prof. <span>Claudio Amado</span> · 2026</p></footer>
 
 <script>
+function escHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 const qs4b=[
   {q:"No CodePen, em qual caixa você escreve o CSS?",opts:["Na caixa HTML","Na caixa JS","Na caixa CSS","No painel de preview"],c:2},
   {q:"O seletor 'body' afeta quais elementos?",opts:["Apenas o texto","Apenas os inputs","Todos os elementos da página","Apenas os títulos"],c:2},
