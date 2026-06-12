@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 6A – Links e Navegação | Desenvolvimento WEB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0a0e1a;--card:#1a2235;--border:#2a3a55;--accent:#38bdf8;--accent2:#818cf8;--text:#e2e8f0;--muted:#94a3b8;--code:#0d1b2a;--green:#34d399}
+    *{box-sizing:border-box;margin:0;padding:0}body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh}body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 20%,rgba(56,189,248,.08),transparent 60%);pointer-events:none}nav{position:sticky;top:0;z-index:10;background:rgba(10,14,26,.94);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}.nav-back{color:var(--accent);text-decoration:none;font-family:'Space Mono',monospace;font-size:12px}.nav-title{font-size:.9rem;color:var(--text);font-weight:700}.badge{margin-left:auto;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.3);color:var(--accent);font-family:'Space Mono',monospace;font-size:10px;padding:4px 10px;border-radius:4px}header,main{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:42px 24px 20px}.tag{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}h1{font-size:clamp(1.8rem,4vw,2.7rem);margin-bottom:10px}.subtitle,p{color:var(--muted);line-height:1.7;margin-bottom:12px}section{margin:34px 0}h2{font-size:1.25rem;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:10px}.box,.resumo,.quiz{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin:16px 0}.box.good{border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.05)}code{font-family:'Space Mono',monospace;background:var(--code);border:1px solid var(--border);padding:2px 7px;border-radius:4px;color:#7dd3fc}pre{background:var(--code);border:1px solid var(--border);border-radius:12px;padding:18px;overflow-x:auto;line-height:1.7;font-family:'Space Mono',monospace;font-size:.84rem;margin:12px 0}.tagc{color:#38bdf8}.attr{color:#c084fc}.val{color:#c3e88d}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.mini{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px;padding:16px}.mini strong{color:var(--accent)}.resumo h3{color:var(--green);margin-bottom:12px}.resumo ul{list-style:none}.resumo li{padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06)}.resumo li::before{content:'→ ';color:var(--green);font-weight:700}.question{margin:14px 0;padding:12px;border:1px solid rgba(255,255,255,.08);border-radius:10px}.answer{color:var(--green);font-weight:700}footer{text-align:center;color:var(--muted);border-top:1px solid var(--border);padding:28px;font-family:'Space Mono',monospace;font-size:12px}.nav-aulas{display:flex;gap:10px;flex-wrap:wrap;margin:30px 0}.btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:10px 16px;border-radius:10px;text-decoration:none}.btn.primary{background:var(--accent);color:#06101d;font-weight:800}
+  </style>
+</head>
+<body>
+<nav><a href="index.html" class="nav-back">← Menu</a><span class="nav-title">Aula 6A — Links e Navegação</span><span class="badge">📖 TEORIA · 12/06</span></nav>
+<header>
+  <div class="tag">Semana 6 · Tempo 1 · Sala</div>
+  <h1>Links e Navegação: saindo de uma página para outra</h1>
+  <p class="subtitle">Nesta aula, o aluno entende que um site pode ter várias páginas e que o link é o caminho entre elas.</p>
+</header>
+<main>
+  <section>
+    <h2>🔗 O que é um link?</h2>
+    <p>Um <strong>link</strong> é um elemento clicável que leva o usuário para outro lugar: outra página do mesmo site, outro site, um arquivo ou uma seção.</p>
+    <div class="box good"><strong>Ideia principal:</strong> link é caminho. Se o formulário é uma ficha, o link é a porta que leva para outra sala do site.</div>
+  </section>
+
+  <section>
+    <h2>🏗️ A tag &lt;a&gt;</h2>
+    <p>A tag usada para criar link é <code>&lt;a&gt;</code>. O endereço do destino fica no atributo <code>href</code>.</p>
+    <pre><span class="tagc">&lt;a</span> <span class="attr">href</span>=<span class="val">"sobre.html"</span><span class="tagc">&gt;</span>Ir para a página Sobre<span class="tagc">&lt;/a&gt;</span></pre>
+    <div class="grid">
+      <div class="mini"><strong>&lt;a&gt;</strong><br>Cria o link.</div>
+      <div class="mini"><strong>href</strong><br>Indica para onde o link vai.</div>
+      <div class="mini"><strong>Texto do link</strong><br>É a parte que o usuário clica.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>📌 Links internos e externos</h2>
+    <p><strong>Link interno</strong> leva para outra página do mesmo projeto. Exemplo: <code>sobre.html</code>.</p>
+    <p><strong>Link externo</strong> leva para outro site. Exemplo: <code>https://www.google.com</code>.</p>
+    <pre><span class="tagc">&lt;a</span> <span class="attr">href</span>=<span class="val">"index.html"</span><span class="tagc">&gt;</span>Home<span class="tagc">&lt;/a&gt;</span>
+<span class="tagc">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://www.google.com"</span><span class="tagc">&gt;</span>Google<span class="tagc">&lt;/a&gt;</span></pre>
+  </section>
+
+  <section>
+    <h2>📒 Resumo para copiar no caderno</h2>
+    <div class="resumo">
+      <h3>✏️ Copie — Aula 6A</h3>
+      <ul>
+        <li>Um site pode ter uma ou várias páginas HTML.</li>
+        <li>Link é um caminho clicável que leva o usuário para outra página ou site.</li>
+        <li>A tag de link é <code>&lt;a&gt;</code>.</li>
+        <li>O atributo <code>href</code> indica o destino do link.</li>
+        <li>Exemplo: <code>&lt;a href="sobre.html"&gt;Sobre&lt;/a&gt;</code>.</li>
+        <li>Link interno aponta para arquivo do próprio projeto, como <code>index.html</code>.</li>
+        <li>Link externo aponta para outro site, começando geralmente com <code>https://</code>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>✅ Checagem rápida</h2>
+    <div class="quiz">
+      <div class="question">1) Qual tag cria um link? <span class="answer">Resposta: &lt;a&gt;</span></div>
+      <div class="question">2) Qual atributo indica o destino do link? <span class="answer">Resposta: href</span></div>
+      <div class="question">3) Em <code>&lt;a href="sobre.html"&gt;Sobre&lt;/a&gt;</code>, qual é o texto clicável? <span class="answer">Resposta: Sobre</span></div>
+    </div>
+  </section>
+
+  <div class="nav-aulas"><a class="btn" href="index.html">← Menu</a><a class="btn primary" href="aula6b.html">Próxima: Aula 6B →</a></div>
+</main>
+<footer>Desenvolvimento WEB · 2º Ano A · Prof. Claudio Amado · 2026</footer>
+</body>
+</html>
