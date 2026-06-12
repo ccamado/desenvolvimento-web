@@ -6,57 +6,30 @@
   <title>Desenvolvimento WEB – 2º Ano A | Prof. Claudio Amado</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg:#0a0e1a;--surface:#111827;--card:#1a2235;--border:#2a3a55;
-      --accent:#38bdf8;--accent2:#818cf8;--accent3:#34d399;
-      --text:#e2e8f0;--muted:#64748b;--done:#22c55e;--soon:#475569;
-    }
+    :root{--bg:#0a0e1a;--surface:#111827;--card:#1a2235;--border:#2a3a55;--accent:#38bdf8;--accent2:#818cf8;--accent3:#34d399;--text:#e2e8f0;--muted:#64748b;--done:#22c55e;--soon:#475569}
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 20%,rgba(56,189,248,.08) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 80% 80%,rgba(129,140,248,.07) 0%,transparent 60%);pointer-events:none;z-index:0}
     header{position:relative;z-index:1;padding:48px 32px 32px;text-align:center;border-bottom:1px solid var(--border)}
     .school-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.3);padding:6px 16px;border-radius:4px;margin-bottom:24px}
     h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;line-height:1.1;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
-    .subtitle{font-size:1rem;color:var(--muted);font-weight:300}
-    .subtitle strong{color:var(--text);font-weight:600}
+    .subtitle{font-size:1rem;color:var(--muted);font-weight:300}.subtitle strong{color:var(--text);font-weight:600}
     .progress-bar-wrap{max-width:700px;margin:32px auto 0;background:var(--surface);border-radius:99px;height:8px;overflow:hidden;border:1px solid var(--border)}
     .progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent3),var(--accent));border-radius:99px;animation:growBar 1.5s ease-out .3s forwards}
-    @keyframes growBar{to{width:33%}}
+    @keyframes growBar{to{width:50%}}
     .progress-label{text-align:center;font-size:12px;color:var(--muted);margin-top:8px;font-family:'Space Mono',monospace}
     main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:48px 24px 80px}
     .bimestre-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:24px}
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s;cursor:pointer;text-decoration:none;display:block;color:inherit}
-    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0}
-    .card.done::before{background:var(--done)}
-    .card.active::before{background:linear-gradient(90deg,var(--accent),var(--accent2))}
-    .card.soon-card::before{background:var(--soon)}
-    .card:not(.soon-card):hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 8px 32px rgba(56,189,248,.12)}
-    .card.soon-card{cursor:default;opacity:.55}
-    .card-week{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
-    .card.active .card-week{color:var(--accent)}
-    .card-num{font-size:3rem;font-weight:800;line-height:1;opacity:.08;position:absolute;top:20px;right:24px;font-family:'Space Mono',monospace}
-    .card h2{font-size:1.15rem;font-weight:600;margin-bottom:8px;line-height:1.4}
-    .card p{font-size:.88rem;color:var(--muted);line-height:1.6}
-    .badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-family:'Space Mono',monospace;padding:4px 10px;border-radius:99px;margin-top:16px;font-weight:700;letter-spacing:1px}
-    .badge.done-badge{background:rgba(34,197,94,.1);color:var(--done);border:1px solid rgba(34,197,94,.3)}
-    .badge.active-badge{background:rgba(56,189,248,.1);color:var(--accent);border:1px solid rgba(56,189,248,.3)}
-    .badge.soon-badge{background:rgba(71,85,105,.2);color:var(--soon);border:1px solid var(--soon)}
-    .badge.review-badge{background:rgba(52,211,153,.08);color:#34d399;border:1px solid rgba(52,211,153,.2);margin-left:6px}
-    .badge.lab-badge{background:rgba(129,140,248,.1);color:var(--accent2);border:1px solid rgba(129,140,248,.3);margin-left:6px}
-    .card.active{border-color:rgba(56,189,248,.4);box-shadow:0 0 0 1px rgba(56,189,248,.1),0 4px 24px rgba(56,189,248,.08);grid-column:1/-1}
-    .active-glow{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(56,189,248,.06) 0%,transparent 70%);pointer-events:none}
-    .sub-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:16px}
-    .sub-card{background:rgba(56,189,248,.05);border:1px solid rgba(56,189,248,.2);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);transition:background .2s,border-color .2s}
-    .sub-card:hover{background:rgba(56,189,248,.1);border-color:rgba(56,189,248,.4)}
-    .sub-icon{font-size:1.4rem}
-    .sub-info{flex:1}
-    .sub-title{font-size:.9rem;font-weight:600}
-    .sub-desc{font-size:.78rem;color:var(--muted);margin-top:2px}
-    .sub-arrow{color:var(--muted);font-size:1rem}
-    footer{position:relative;z-index:1;text-align:center;padding:32px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);font-family:'Space Mono',monospace}
-    footer span{color:var(--accent)}
-    @media(max-width:600px){header{padding:32px 16px 24px}main{padding:32px 16px 60px}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s;text-decoration:none;display:block;color:inherit}
+    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0}.card.done::before{background:var(--done)}.card.active::before{background:linear-gradient(90deg,var(--accent),var(--accent2))}.card.soon-card::before{background:var(--soon)}
+    a.card:not(.soon-card):hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 8px 32px rgba(56,189,248,.12)}.soon-card{cursor:default;opacity:.55}
+    .card-week{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}.card.active .card-week{color:var(--accent)}
+    .card-num{font-size:3rem;font-weight:800;line-height:1;opacity:.08;position:absolute;top:20px;right:24px;font-family:'Space Mono',monospace}.card h2{font-size:1.15rem;font-weight:600;margin-bottom:8px;line-height:1.4}.card p{font-size:.88rem;color:var(--muted);line-height:1.6}
+    .badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-family:'Space Mono',monospace;padding:4px 10px;border-radius:99px;margin-top:16px;font-weight:700;letter-spacing:1px}.done-badge{background:rgba(34,197,94,.1);color:var(--done);border:1px solid rgba(34,197,94,.3)}.active-badge{background:rgba(56,189,248,.1);color:var(--accent);border:1px solid rgba(56,189,248,.3)}.soon-badge{background:rgba(71,85,105,.2);color:var(--soon);border:1px solid var(--soon)}.review-badge{background:rgba(52,211,153,.08);color:#34d399;border:1px solid rgba(52,211,153,.2);margin-left:6px}.lab-badge{background:rgba(129,140,248,.1);color:var(--accent2);border:1px solid rgba(129,140,248,.3);margin-left:6px}
+    .card.active{border-color:rgba(56,189,248,.4);box-shadow:0 0 0 1px rgba(56,189,248,.1),0 4px 24px rgba(56,189,248,.08);grid-column:1/-1}.active-glow{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(56,189,248,.06) 0%,transparent 70%);pointer-events:none}
+    .sub-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:16px}.sub-card{background:rgba(56,189,248,.05);border:1px solid rgba(56,189,248,.2);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);transition:background .2s,border-color .2s}.sub-card:hover{background:rgba(56,189,248,.1);border-color:rgba(56,189,248,.4)}.sub-icon{font-size:1.4rem}.sub-info{flex:1}.sub-title{font-size:.9rem;font-weight:600}.sub-desc{font-size:.78rem;color:var(--muted);margin-top:2px}.sub-arrow{color:var(--muted);font-size:1rem}
+    footer{position:relative;z-index:1;text-align:center;padding:32px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);font-family:'Space Mono',monospace}footer span{color:var(--accent)}@media(max-width:600px){header{padding:32px 16px 24px}main{padding:32px 16px 60px}}
   </style>
 </head>
 <body>
@@ -65,69 +38,38 @@
   <h1>Desenvolvimento WEB</h1>
   <p class="subtitle">2º Ano A &nbsp;·&nbsp; <strong>2º Bimestre 2026</strong> &nbsp;·&nbsp; Prof. <strong>Claudio Amado</strong></p>
   <div class="progress-bar-wrap"><div class="progress-bar"></div></div>
-  <p class="progress-label">4 de 12 semanas &nbsp;—&nbsp; 33% concluído</p>
+  <p class="progress-label">6 de 12 semanas &nbsp;—&nbsp; 50% concluído</p>
 </header>
 <main>
   <p class="bimestre-label">📚 Navegue pelas aulas do bimestre</p>
   <div class="grid">
-    <a href="aula1.html" class="card done">
-      <div class="card-num">01</div>
-      <div class="card-week">Semana 1 — 08/05</div>
-      <h2>Formulários HTML: o começo</h2>
-      <p>Conceito de campo = dado. Estrutura mínima do form com label, input e br. Prática: form Nome/Turma/Cidade.</p>
-      <div><span class="badge done-badge">✓ Concluído</span><span class="badge review-badge">Revisão</span></div>
-    </a>
-    <a href="aula2.html" class="card done">
-      <div class="card-num">02</div>
-      <div class="card-week">Semana 2 — 15/05</div>
-      <h2>Tipos de Input e Validação</h2>
-      <p>text, number, email, password. Adicionando Idade com tipo correto. Validação: required e placeholder.</p>
-      <div><span class="badge done-badge">✓ Concluído</span><span class="badge review-badge">Revisão</span></div>
-    </a>
-    <a href="aula3.html" class="card done">
-      <div class="card-num">03</div>
-      <div class="card-week">Semana 3 — 22/05</div>
-      <h2>Campos de Escolha</h2>
-      <p>radio, select/option e checkbox. Prática guiada e revisão de erros. Série, Cidade, Interesses.</p>
-      <div><span class="badge done-badge">✓ Concluído</span><span class="badge review-badge">Revisão</span></div>
-    </a>
+    <a href="aula1.html" class="card done"><div class="card-num">01</div><div class="card-week">Semana 1 — 08/05</div><h2>Formulários HTML: o começo</h2><p>Conceito de campo = dado. Estrutura mínima do form com label, input e br. Prática: form Nome/Turma/Cidade.</p><div><span class="badge done-badge">✓ Concluído</span><span class="badge review-badge">Revisão</span></div></a>
+    <a href="aula2.html" class="card done"><div class="card-num">02</div><div class="card-week">Semana 2 — 15/05</div><h2>Tipos de Input e Validação</h2><p>text, number, email, password. Adicionando Idade com tipo correto. Validação: required e placeholder.</p><div><span class="badge done-badge">✓ Concluído</span><span class="badge review-badge">Revisão</span></div></a>
+    <a href="aula3.html" class="card done"><div class="card-num">03</div><div class="card-week">Semana 3 — 22/05</div><h2>Campos de Escolha</h2><p>radio, select/option e checkbox. Prática guiada e revisão de erros. Série, Cidade, Interesses.</p><div><span class="badge done-badge">✓ Concluído</span><span class="badge review-badge">Revisão</span></div></a>
+    <a href="aula4a.html" class="card done"><div class="card-num">04</div><div class="card-week">Semana 4 — 29/05</div><h2>CSS para Formulários</h2><p>Fontes, cores, espaçamento, fundo, borda e card simples. Teoria + duas práticas de laboratório.</p><div><span class="badge done-badge">✓ Concluído</span><span class="badge lab-badge">🧪 Lab</span></div></a>
+    <div class="card done"><div class="card-num">05</div><div class="card-week">Semana 5 — 05/06</div><h2>Não letivo / Reforço</h2><p>Sem aula. Retomada e correção de formulários pendentes quando necessário.</p><span class="badge done-badge">✓ Registro</span></div>
+
     <div class="card active">
       <div class="active-glow"></div>
-      <div class="card-num">04</div>
-      <div class="card-week">🔴 AO VIVO — Semana 4 — 29/05</div>
-      <h2>CSS para Formulários: deixando bonito!</h2>
-      <p>Fontes, cores, espaçamento e card simples. Três aulas hoje — uma teórica + duas de laboratório.</p>
+      <div class="card-num">06</div>
+      <div class="card-week">🔴 AO VIVO — Semana 6 — 12/06</div>
+      <h2>Links e Navegação: criando duas páginas</h2>
+      <p>Hoje teremos três aulas: conceito de link, criação de duas páginas HTML e menu simples entre Home e Sobre.</p>
       <div style="margin-bottom:16px"><span class="badge active-badge">▶ Aula de Hoje</span><span class="badge lab-badge">🧪 Lab</span></div>
       <div class="sub-cards">
-        <a href="aula4a.html" class="sub-card">
-          <span class="sub-icon">📖</span>
-          <div class="sub-info"><div class="sub-title">Aula 4A — Resumo de Comandos CSS</div><div class="sub-desc">Teoria leve · Referência rápida · Visual</div></div>
-          <span class="sub-arrow">→</span>
-        </a>
-        <a href="aula4b.html" class="sub-card">
-          <span class="sub-icon">🧪</span>
-          <div class="sub-info"><div class="sub-title">Aula 4B — Lab 1: Fonte e Fundo</div><div class="sub-desc">Laboratório passo a passo · CodePen · Sem login</div></div>
-          <span class="sub-arrow">→</span>
-        </a>
-        <a href="aula4c.html" class="sub-card">
-          <span class="sub-icon">🎨</span>
-          <div class="sub-info"><div class="sub-title">Aula 4C — Lab 2: Card Completo</div><div class="sub-desc">Laboratório passo a passo · Resultado visual bonito</div></div>
-          <span class="sub-arrow">→</span>
-        </a>
+        <a href="aula6a.html" class="sub-card"><span class="sub-icon">🔗</span><div class="sub-info"><div class="sub-title">Aula 6A — Links e Navegação</div><div class="sub-desc">Teoria leve · tag a · href · resumo para caderno</div></div><span class="sub-arrow">→</span></a>
+        <a href="aula6b.html" class="sub-card"><span class="sub-icon">🧪</span><div class="sub-info"><div class="sub-title">Aula 6B — Lab 1: Duas páginas</div><div class="sub-desc">index.html + sobre.html · passo a passo</div></div><span class="sub-arrow">→</span></a>
+        <a href="aula6c.html" class="sub-card"><span class="sub-icon">🧭</span><div class="sub-info"><div class="sub-title">Aula 6C — Lab 2: Menu simples</div><div class="sub-desc">Home | Sobre · organização e acabamento</div></div><span class="sub-arrow">→</span></a>
       </div>
     </div>
-    <div class="card soon-card"><div class="card-num">05</div><div class="card-week">Semana 5 — 05/06</div><h2>Não letivo / Reforço</h2><p>Sem aula. Retomar e corrigir formulários pendentes no caderno.</p><span class="badge soon-badge">🔒 Em breve</span></div>
-    <div class="card soon-card"><div class="card-num">06</div><div class="card-week">Semana 6 — 12/06</div><h2>Links e Navegação</h2><p>Tag &lt;a href&gt;. Duas páginas: Home com form + Sobre. Menu simples.</p><span class="badge soon-badge">🔒 Em breve</span></div>
+
     <div class="card soon-card"><div class="card-num">07</div><div class="card-week">Semana 7 — 19/06</div><h2>Semântica + Tabelas HTML</h2><p>Organização semântica e pré-visualização de dados em tabela.</p><span class="badge soon-badge">🔒 Em breve</span></div>
     <div class="card soon-card"><div class="card-num">08</div><div class="card-week">Semana 8 — 26/06</div><h2>Revisão + Atividade Avaliativa</h2><p>Ficha do aluno completa com types, required, radio, select e checkbox.</p><span class="badge soon-badge">🔒 Em breve</span></div>
     <div class="card soon-card"><div class="card-num">09</div><div class="card-week">Semana 9 — 03/07</div><h2>JavaScript Iniciante</h2><p>Evento submit, document/DOM. Ler value e mostrar mensagem na tela.</p><span class="badge soon-badge">🔒 Em breve</span></div>
     <div class="card soon-card"><div class="card-num">10</div><div class="card-week">Semana 10 — 10/07 (RAV)</div><h2>Recuperação + CRUD</h2><p>Retomada do formulário completo e conceito de cadastrar/listar.</p><span class="badge soon-badge">🔒 Em breve</span></div>
-    <div class="card soon-card"><div class="card-num">11</div><div class="card-week">Semanas 11–12 — RAV</div><h2>Recuperação Final</h2><p>Correção de atividades, checklist do form e reforço de erros comuns.</p><span class="badge soon-badge">🔒 Em breve</span></div>
+    <div class="card soon-card"><div class="card-num">11</div><div class="card-week">Semana 11 — 13 e 14/07 (RAV)</div><h2>Recuperação Final</h2><p>Correção de atividades, checklist do form e reforço de erros comuns.</p><span class="badge soon-badge">🔒 Em breve</span></div>
   </div>
 </main>
-<footer>
-  <p>Desenvolvimento WEB &nbsp;·&nbsp; 2º Ano A &nbsp;·&nbsp; Prof. <span>Claudio Amado</span> &nbsp;·&nbsp; 2026</p>
-  <p style="margin-top:6px">Centro de Educação Profissional Ezequiel Ferreira Lima · Campo Grande/MS</p>
-</footer>
+<footer><p>Desenvolvimento WEB &nbsp;·&nbsp; 2º Ano A &nbsp;·&nbsp; Prof. <span>Claudio Amado</span> &nbsp;·&nbsp; 2026</p><p style="margin-top:6px">Centro de Educação Profissional Ezequiel Ferreira Lima · Campo Grande/MS</p></footer>
 </body>
 </html>
