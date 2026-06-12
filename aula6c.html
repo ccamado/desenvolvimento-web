@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 6C – Lab 2: Menu Simples | Desenvolvimento WEB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0a0e1a;--card:#1a2235;--border:#2a3a55;--accent:#34d399;--accent2:#38bdf8;--text:#e2e8f0;--muted:#94a3b8;--code:#0d1b2a;--orange:#fb923c}
+    *{box-sizing:border-box;margin:0;padding:0}body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh}body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 80%,rgba(52,211,153,.08),transparent 60%);pointer-events:none}nav{position:sticky;top:0;z-index:10;background:rgba(10,14,26,.94);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}.nav-back{color:var(--accent);text-decoration:none;font-family:'Space Mono',monospace;font-size:12px}.nav-title{font-size:.9rem;color:var(--text);font-weight:700}.badge{margin-left:auto;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);color:var(--accent);font-family:'Space Mono',monospace;font-size:10px;padding:4px 10px;border-radius:4px}header,main{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:42px 24px 20px}.tag{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}h1{font-size:clamp(1.8rem,4vw,2.7rem);margin-bottom:10px}.subtitle,p{color:var(--muted);line-height:1.7;margin-bottom:12px}section{margin:34px 0}h2{font-size:1.25rem;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:10px}.box,.resumo,.step,.final{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin:18px 0}.step{position:relative}.step-num{position:absolute;top:-12px;left:20px;background:var(--accent);color:#0a0e1a;font-family:'Space Mono',monospace;font-size:.78rem;font-weight:800;padding:4px 12px;border-radius:99px}.step h3{margin-top:10px;margin-bottom:10px}code{font-family:'Space Mono',monospace;background:var(--code);border:1px solid var(--border);padding:2px 7px;border-radius:4px;color:#86efac}pre{background:var(--code);border:1px solid var(--border);border-radius:12px;padding:18px;overflow-x:auto;line-height:1.7;font-family:'Space Mono',monospace;font-size:.82rem;margin:12px 0}.tagc{color:#38bdf8}.attr{color:#c084fc}.val{color:#c3e88d}.cm{color:#64748b;font-style:italic}.tip{background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.25);border-radius:10px;padding:12px 14px;color:var(--text);margin:10px 0}.challenge{background:rgba(251,146,60,.06);border:1px solid rgba(251,146,60,.25);border-radius:10px;padding:12px 14px;color:var(--text);margin:10px 0}.preview{background:#fff;color:#1e293b;border-radius:14px;padding:20px;margin:12px 0}.preview nav{position:static;background:#e0f2fe;border:0;border-radius:10px;padding:12px;display:flex;gap:14px}.preview a{color:#0369a1;text-decoration:none;font-weight:700}.preview a:hover{text-decoration:underline}.resumo h3{color:var(--accent);margin-bottom:12px}.resumo ul{list-style:none}.resumo li{padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06)}.resumo li::before{content:'→ ';color:var(--accent);font-weight:700}.checklist{display:grid;gap:8px}.checklist div{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px}.nav-aulas{display:flex;gap:10px;flex-wrap:wrap;margin:30px 0}.btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:10px 16px;border-radius:10px;text-decoration:none}.btn.primary{background:var(--accent);color:#06101d;font-weight:800}footer{text-align:center;color:var(--muted);border-top:1px solid var(--border);padding:28px;font-family:'Space Mono',monospace;font-size:12px}
+  </style>
+</head>
+<body>
+<nav><a href="index.html" class="nav-back">← Menu</a><a href="aula6a.html" class="nav-back">6A</a><a href="aula6b.html" class="nav-back">6B</a><span class="nav-title">Aula 6C — Lab 2: Menu simples</span><span class="badge">🧭 LAB FINAL · 12/06</span></nav>
+<header>
+  <div class="tag">Semana 6 · Tempo 3 · Laboratório</div>
+  <h1>Lab 2: Criando um menu simples</h1>
+  <p class="subtitle">Agora vamos melhorar as duas páginas criadas na aula anterior, colocando um menu igual nas duas páginas.</p>
+</header>
+<main>
+  <section>
+    <h2>🎯 Resultado esperado</h2>
+    <p>Ao final, o aluno terá duas páginas com um menu no topo: <strong>Home</strong> e <strong>Sobre</strong>.</p>
+    <div class="preview"><nav><a href="#">Home</a><a href="#">Sobre</a></nav><h3 style="margin:18px 0 8px">Página inicial</h3><p style="color:#475569">Exemplo de página com menu simples.</p></div>
+  </section>
+
+  <section>
+    <h2>📋 Passos do Laboratório</h2>
+    <div class="step"><span class="step-num">PASSO 1</span><h3>Adicionar o menu no index.html</h3><p>Abra o arquivo <code>index.html</code>. Logo depois da abertura do <code>&lt;body&gt;</code>, coloque este menu:</p>
+<pre><span class="tagc">&lt;nav&gt;</span>
+  <span class="tagc">&lt;a</span> <span class="attr">href</span>=<span class="val">"index.html"</span><span class="tagc">&gt;</span>Home<span class="tagc">&lt;/a&gt;</span>
+  <span class="tagc">&lt;a</span> <span class="attr">href</span>=<span class="val">"sobre.html"</span><span class="tagc">&gt;</span>Sobre<span class="tagc">&lt;/a&gt;</span>
+<span class="tagc">&lt;/nav&gt;</span></pre><div class="tip">A tag <code>&lt;nav&gt;</code> serve para agrupar links de navegação.</div></div>
+
+    <div class="step"><span class="step-num">PASSO 2</span><h3>Adicionar o mesmo menu no sobre.html</h3><p>Agora abra o arquivo <code>sobre.html</code> e coloque o mesmo menu logo depois do <code>&lt;body&gt;</code>:</p>
+<pre><span class="tagc">&lt;nav&gt;</span>
+  <span class="tagc">&lt;a</span> <span class="attr">href</span>=<span class="val">"index.html"</span><span class="tagc">&gt;</span>Home<span class="tagc">&lt;/a&gt;</span>
+  <span class="tagc">&lt;a</span> <span class="attr">href</span>=<span class="val">"sobre.html"</span><span class="tagc">&gt;</span>Sobre<span class="tagc">&lt;/a&gt;</span>
+<span class="tagc">&lt;/nav&gt;</span></pre></div>
+
+    <div class="step"><span class="step-num">PASSO 3</span><h3>Organizar o conteúdo da Home</h3><p>Deixe sua página inicial com título, parágrafo e o formulário das aulas anteriores, se possível:</p>
+<pre><span class="tagc">&lt;h1&gt;</span>Página inicial<span class="tagc">&lt;/h1&gt;</span>
+<span class="tagc">&lt;p&gt;</span>Bem-vindo ao meu site de Desenvolvimento Web.<span class="tagc">&lt;/p&gt;</span>
+
+<span class="tagc">&lt;form&gt;</span>
+  <span class="tagc">&lt;label&gt;</span>Nome:<span class="tagc">&lt;/label&gt;</span><span class="tagc">&lt;br&gt;</span>
+  <span class="tagc">&lt;input</span> <span class="attr">type</span>=<span class="val">"text"</span> <span class="attr">placeholder</span>=<span class="val">"Seu nome"</span><span class="tagc">&gt;</span>
+<span class="tagc">&lt;/form&gt;</span></pre></div>
+
+    <div class="step"><span class="step-num">PASSO 4</span><h3>Dar acabamento com CSS simples</h3><p>Dentro do <code>&lt;head&gt;</code>, antes de fechar <code>&lt;/head&gt;</code>, coloque:</p>
+<pre><span class="tagc">&lt;style&gt;</span>
+  <span class="tagc">body</span> {
+    <span class="attr">font-family</span>: <span class="val">Arial, sans-serif</span>;
+    <span class="attr">background-color</span>: <span class="val">#f0f4ff</span>;
+    <span class="attr">padding</span>: <span class="val">20px</span>;
+  }
+
+  <span class="tagc">nav</span> {
+    <span class="attr">background-color</span>: <span class="val">#dbeafe</span>;
+    <span class="attr">padding</span>: <span class="val">12px</span>;
+    <span class="attr">border-radius</span>: <span class="val">8px</span>;
+    <span class="attr">margin-bottom</span>: <span class="val">20px</span>;
+  }
+
+  <span class="tagc">nav a</span> {
+    <span class="attr">margin-right</span>: <span class="val">15px</span>;
+    <span class="attr">text-decoration</span>: <span class="val">none</span>;
+    <span class="attr">font-weight</span>: <span class="val">bold</span>;
+  }
+<span class="tagc">&lt;/style&gt;</span></pre><div class="challenge">Desafio: troque as cores do menu e do fundo sem apagar a estrutura.</div></div>
+  </section>
+
+  <section>
+    <h2>📒 Resumo para copiar no caderno</h2>
+    <div class="resumo">
+      <h3>✏️ Copie — Aula 6C</h3>
+      <ul>
+        <li>A tag <code>&lt;nav&gt;</code> é usada para agrupar links de navegação.</li>
+        <li>Um menu é um conjunto de links que ajuda o usuário a andar pelo site.</li>
+        <li>O mesmo menu pode aparecer em várias páginas do site.</li>
+        <li>Exemplo de menu: <code>&lt;nav&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/nav&gt;</code>.</li>
+        <li>O CSS pode melhorar o menu com fundo, espaçamento, borda e cores.</li>
+        <li><code>text-decoration: none;</code> remove o sublinhado do link.</li>
+        <li><code>margin-right</code> cria espaço entre um link e outro.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="final">
+      <h2>✅ Checklist final</h2>
+      <div class="checklist">
+        <div>☐ Tenho o arquivo <code>index.html</code>.</div>
+        <div>☐ Tenho o arquivo <code>sobre.html</code>.</div>
+        <div>☐ A Home abre a página Sobre.</div>
+        <div>☐ A página Sobre volta para a Home.</div>
+        <div>☐ As duas páginas têm menu.</div>
+        <div>☐ O menu recebeu CSS simples.</div>
+      </div>
+    </div>
+  </section>
+  <div class="nav-aulas"><a class="btn" href="aula6b.html">← Aula 6B</a><a class="btn primary" href="index.html">Voltar ao Menu</a></div>
+</main>
+<footer>Desenvolvimento WEB · 2º Ano A · Prof. Claudio Amado · 2026</footer>
+</body>
+</html>
