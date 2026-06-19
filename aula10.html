@@ -6,8 +6,41 @@
   <title>Aula 10 - RAV e CRUD | Desenvolvimento WEB</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#0a0e1a;--surface:#111827;--card:#1a2235;--border:#2a3a55;--accent:#fb7185;--accent2:#818cf8;--text:#e2e8f0;--muted:#94a3b8}
-    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Outfit,sans-serif;line-height:1.6}.wrap{max-width:960px;margin:0 auto;padding:28px 18px 64px}nav{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap}.btn,.nav-back{color:var(--text);text-decoration:none;border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:9px 14px;font-weight:700}.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:0}.tag{font-family:"Space Mono",monospace;color:var(--accent);font-size:12px;letter-spacing:2px;text-transform:uppercase}h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.05;margin:10px 0 12px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}section{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;margin:18px 0}h2{margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}.crud{background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.25);border-radius:14px;padding:14px}.check div{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.08)}code{font-family:"Space Mono",monospace;color:#fecdd3}.summary{border-left:4px solid var(--accent)}
+    :root{--bg:#0a0e1a;--surface:#111827;--card:#1a2235;--border:#2a3a55;--accent:#fb7185;--accent2:#818cf8;--accent3:#34d399;--text:#e2e8f0;--muted:#94a3b8;--code:#07111f;--warn:#facc15}
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(circle at top left,rgba(251,113,133,.16),transparent 35%),radial-gradient(circle at bottom right,rgba(129,140,248,.14),transparent 35%),var(--bg);color:var(--text);font-family:Outfit,sans-serif;line-height:1.6}
+    .wrap{max-width:1040px;margin:0 auto;padding:28px 18px 64px}
+    nav{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap}
+    .btn,.nav-back{color:var(--text);text-decoration:none;border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:10px 14px;font-weight:700;display:inline-block}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:0}
+    .btn.success{background:linear-gradient(135deg,var(--accent3),#38bdf8);color:#052e16;border:0}
+    .tag{font-family:"Space Mono",monospace;color:var(--accent);font-size:12px;letter-spacing:2px;text-transform:uppercase}
+    h1{font-size:clamp(2rem,5vw,3.35rem);line-height:1.05;margin:10px 0 12px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    section{background:rgba(26,34,53,.94);border:1px solid var(--border);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 18px 50px rgba(0,0,0,.18)}
+    h2{margin:0 0 12px;font-size:1.35rem}
+    h3{margin:16px 0 8px}
+    p{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+    .crud{background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.25);border-radius:14px;padding:14px}
+    .check div{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+    code{font-family:"Space Mono",monospace;color:#fecdd3}
+    pre{background:var(--code);border:1px solid var(--border);border-radius:14px;padding:16px;overflow:auto;color:#dbeafe;font-family:"Space Mono",monospace;font-size:.84rem;line-height:1.55;white-space:pre-wrap}
+    .code-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px}
+    .code-title span{font-family:"Space Mono",monospace;font-size:12px;color:var(--accent3);letter-spacing:1px;text-transform:uppercase}
+    .summary{border-left:4px solid var(--accent3)}
+    .summary ol{margin:0;padding-left:24px}
+    .summary li{margin:7px 0;color:#dbeafe}
+    .quiz-card{background:rgba(15,23,42,.72);border:1px solid var(--border);border-radius:14px;padding:16px;margin:12px 0}
+    .quiz-card p{margin:0 0 10px;color:#e2e8f0;font-weight:700}
+    .quiz-card button{margin:5px 6px 5px 0;border:1px solid var(--border);border-radius:10px;padding:9px 11px;background:#111827;color:#e5e7eb;cursor:pointer}
+    .quiz-card button:hover{border-color:var(--accent)}
+    .quiz-card button.correct{background:#14532d;border-color:#22c55e}
+    .quiz-card button.wrong{background:#7f1d1d;border-color:#fb7185}
+    .feedback{font-size:.92rem;color:#cbd5e1;margin-top:8px;min-height:1.4em}
+    .score{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px}
+    .pill{border:1px solid var(--border);background:#111827;border-radius:999px;padding:8px 12px;color:#dbeafe}
+    .callout{background:rgba(250,204,21,.08);border:1px solid rgba(250,204,21,.25);border-radius:14px;padding:14px;color:#fde68a}
+    ul,ol{padding-left:24px}
   </style>
 </head>
 <body>
@@ -15,8 +48,8 @@
   <nav><a href="index.html" class="nav-back">&larr; Menu</a><span class="tag">Semana 10 - RAV - 10/07/2026</span></nav>
   <header>
     <div class="tag">Recuperar para Avancar</div>
-    <h1>Formulario completo + ideia de CRUD</h1>
-    <p>Retomada leve do bimestre e ponte para banco de dados.</p>
+    <h1>Formulario completo + CRUD funcional</h1>
+    <p>Pratica no CodePen para cadastrar, listar, alterar e excluir alunos sem banco de dados.</p>
   </header>
 
   <section>
@@ -41,23 +74,409 @@
     <p>Nesta aula, o foco e entender o conceito. O banco de dados vem depois.</p>
   </section>
 
+  <section>
+    <h2>Pratica no CodePen: CRUD funcional</h2>
+    <p>Abra <strong>https://codepen.io/pen/</strong>. Cole cada parte no bloco correspondente: HTML, CSS e JS. O resultado aparece no preview do CodePen.</p>
+    <div class="callout"><strong>Importante:</strong> os dados ficam apenas na tela. Se atualizar a pagina, eles somem. Em um sistema real, os dados seriam enviados para um banco de dados.</div>
+
+    <div class="code-title"><span>HTML - cole no bloco HTML</span></div>
+    <pre><code>&lt;main class="app"&gt;
+  &lt;section class="card"&gt;
+    &lt;div class="header"&gt;
+      &lt;span class="tag"&gt;CRUD sem banco&lt;/span&gt;
+      &lt;h1&gt;Cadastro de Alunos&lt;/h1&gt;
+      &lt;p&gt;Cadastre, liste, altere e exclua alunos usando HTML, CSS e JavaScript.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;form id="formAluno" class="form"&gt;
+      &lt;input id="nome" placeholder="Nome do aluno" required&gt;
+      &lt;input id="turma" placeholder="Turma" required&gt;
+      &lt;input id="cidade" placeholder="Cidade" required&gt;
+
+      &lt;div class="actions"&gt;
+        &lt;button id="btnSalvar" type="submit"&gt;Cadastrar&lt;/button&gt;
+        &lt;button id="btnCancelar" type="button" class="secondary hidden"&gt;Cancelar alteração&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/section&gt;
+
+  &lt;section class="card"&gt;
+    &lt;h2&gt;Alunos cadastrados&lt;/h2&gt;
+
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Nome&lt;/th&gt;
+          &lt;th&gt;Turma&lt;/th&gt;
+          &lt;th&gt;Cidade&lt;/th&gt;
+          &lt;th&gt;Ações&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody id="listaAlunos"&gt;
+        &lt;tr class="empty-row"&gt;
+          &lt;td colspan="4"&gt;Nenhum aluno cadastrado ainda.&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/section&gt;
+&lt;/main&gt;</code></pre>
+
+    <div class="code-title"><span>CSS - cole no bloco CSS</span></div>
+    <pre><code>* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 24px;
+}
+
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.tag {
+  display: inline-block;
+  background: #0ea5e9;
+  color: #082f49;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+p {
+  color: #cbd5e1;
+}
+
+.form {
+  display: grid;
+  gap: 12px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #475569;
+  border-radius: 10px;
+  background: #0f172a;
+  color: #f8fafc;
+  font-size: 15px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 11px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #22c55e;
+  color: #052e16;
+}
+
+button:hover {
+  filter: brightness(1.08);
+}
+
+button.secondary {
+  background: #64748b;
+  color: white;
+}
+
+button.edit {
+  background: #facc15;
+  color: #422006;
+}
+
+button.delete {
+  background: #fb7185;
+  color: #450a0a;
+}
+
+.hidden {
+  display: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #334155;
+  text-align: left;
+}
+
+th {
+  background: #0f172a;
+  color: #93c5fd;
+}
+
+td {
+  color: #e5e7eb;
+}
+
+.empty-row td {
+  text-align: center;
+  color: #94a3b8;
+  padding: 20px;
+}
+
+td:last-child {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 12px;
+  }
+
+  th,
+  td {
+    font-size: 13px;
+    padding: 9px;
+  }
+}</code></pre>
+
+    <div class="code-title"><span>JS - cole no bloco JS</span></div>
+    <pre><code>const form = document.getElementById("formAluno");
+const nome = document.getElementById("nome");
+const turma = document.getElementById("turma");
+const cidade = document.getElementById("cidade");
+
+const listaAlunos = document.getElementById("listaAlunos");
+const btnSalvar = document.getElementById("btnSalvar");
+const btnCancelar = document.getElementById("btnCancelar");
+
+let linhaEmEdicao = null;
+
+form.addEventListener("submit", function(evento) {
+  evento.preventDefault();
+
+  if (linhaEmEdicao === null) {
+    cadastrarAluno();
+  } else {
+    salvarAlteracao();
+  }
+
+  limparFormulario();
+});
+
+btnCancelar.addEventListener("click", function() {
+  linhaEmEdicao = null;
+  limparFormulario();
+});
+
+function cadastrarAluno() {
+  removerMensagemVazia();
+
+  const linha = document.createElement("tr");
+
+  linha.innerHTML = `
+    &lt;td&gt;${nome.value}&lt;/td&gt;
+    &lt;td&gt;${turma.value}&lt;/td&gt;
+    &lt;td&gt;${cidade.value}&lt;/td&gt;
+    &lt;td&gt;
+      &lt;button class="edit" onclick="alterarAluno(this)"&gt;Alterar&lt;/button&gt;
+      &lt;button class="delete" onclick="excluirAluno(this)"&gt;Excluir&lt;/button&gt;
+    &lt;/td&gt;
+  `;
+
+  listaAlunos.appendChild(linha);
+}
+
+function alterarAluno(botao) {
+  linhaEmEdicao = botao.parentElement.parentElement;
+
+  nome.value = linhaEmEdicao.children[0].innerText;
+  turma.value = linhaEmEdicao.children[1].innerText;
+  cidade.value = linhaEmEdicao.children[2].innerText;
+
+  btnSalvar.innerText = "Salvar alteração";
+  btnCancelar.classList.remove("hidden");
+}
+
+function salvarAlteracao() {
+  linhaEmEdicao.children[0].innerText = nome.value;
+  linhaEmEdicao.children[1].innerText = turma.value;
+  linhaEmEdicao.children[2].innerText = cidade.value;
+
+  linhaEmEdicao = null;
+}
+
+function excluirAluno(botao) {
+  const linha = botao.parentElement.parentElement;
+  linha.remove();
+
+  if (listaAlunos.children.length === 0) {
+    mostrarMensagemVazia();
+  }
+}
+
+function limparFormulario() {
+  form.reset();
+
+  btnSalvar.innerText = "Cadastrar";
+  btnCancelar.classList.add("hidden");
+}
+
+function removerMensagemVazia() {
+  const linhaVazia = document.querySelector(".empty-row");
+
+  if (linhaVazia !== null) {
+    linhaVazia.remove();
+  }
+}
+
+function mostrarMensagemVazia() {
+  listaAlunos.innerHTML = `
+    &lt;tr class="empty-row"&gt;
+      &lt;td colspan="4"&gt;Nenhum aluno cadastrado ainda.&lt;/td&gt;
+    &lt;/tr&gt;
+  `;
+}</code></pre>
+
+    <p><a class="btn success" href="aula10_entendendo_codigo.html">Entendendo o código</a></p>
+  </section>
+
   <section class="summary">
-    <h2>Atividade RAV</h2>
-    <p>Corrigir a ficha do aluno usando o checklist. Quem terminar faz uma lista no caderno com 3 exemplos de CRUD no cotidiano.</p>
+    <h2>Resumo para o caderno - 10 linhas</h2>
+    <ol>
+      <li>CRUD significa criar, listar, alterar e excluir dados.</li>
+      <li>O HTML cria a estrutura do formulário e da tabela.</li>
+      <li>O CSS melhora a aparência e organiza os elementos na tela.</li>
+      <li>O JavaScript adiciona comportamento e interação.</li>
+      <li><code>getElementById</code> busca elementos pelo id no HTML.</li>
+      <li><code>addEventListener</code> faz o código reagir a uma ação do usuário.</li>
+      <li><code>preventDefault</code> impede o formulário de recarregar a página.</li>
+      <li><code>value</code> pega o texto digitado nos campos.</li>
+      <li><code>appendChild</code> coloca uma nova linha dentro da tabela.</li>
+      <li><code>classList</code>, <code>innerText</code> e <code>remove</code> ajudam a alterar a tela.</li>
+    </ol>
   </section>
 
   <section>
-    <h2>Mini-simulado oral/escrito</h2>
-    <ol>
-      <li>Qual tag cria o formulario?</li>
-      <li>Qual campo permite varias escolhas?</li>
-      <li>Para que serve o <code>required</code>?</li>
-      <li>O que significa DOM?</li>
-      <li>O que seria "cadastrar" no CRUD?</li>
-    </ol>
+    <h2>Quiz - 10 questões</h2>
+    <div id="quiz"></div>
+    <div class="score">
+      <span class="pill"><strong>Placar:</strong> <span id="score">0 / 10</span></span>
+      <button class="btn" type="button" id="resetQuiz">Reiniciar quiz</button>
+    </div>
   </section>
 
   <nav><a class="btn" href="aula9.html">&larr; Aula 9</a><a class="btn primary" href="aula11.html">Proxima: Aula 11 &rarr;</a></nav>
 </div>
+
+<script>
+const perguntas = [
+  {q:"O que significa CRUD?", a:["Criar, revisar, unir e deletar","Criar, listar, alterar e excluir","Copiar, rodar, usar e deletar"], c:1, e:"CRUD representa as quatro operações básicas com dados."},
+  {q:"Qual parte cria a estrutura do formulário?", a:["HTML","CSS","JS"], c:0, e:"O HTML cria campos, botões, tabela e textos."},
+  {q:"Qual parte muda cores, espaçamento e aparência?", a:["HTML","CSS","JS"], c:1, e:"O CSS cuida da apresentação visual."},
+  {q:"Qual comando busca um elemento pelo id?", a:["queryButton","getElementById","appendChild"], c:1, e:"getElementById encontra elementos como formAluno, nome e listaAlunos."},
+  {q:"Para que serve preventDefault()?", a:["Apagar a tabela","Impedir o recarregamento do formulário","Mudar a cor do botão"], c:1, e:"Ele impede o comportamento padrão de envio/recarregamento da página."},
+  {q:"Qual propriedade pega o texto digitado no input?", a:["innerText","classList","value"], c:2, e:"value guarda o valor digitado pelo usuário no campo."},
+  {q:"Qual função cria uma linha nova na tabela?", a:["cadastrarAluno()","limparFormulario()","mostrarMensagemVazia()"], c:0, e:"cadastrarAluno cria a linha e adiciona na tabela."},
+  {q:"O que acontece ao clicar em Alterar?", a:["A linha some","Os dados voltam para o formulário","A página fecha"], c:1, e:"alterarAluno coloca os dados da linha nos inputs para edição."},
+  {q:"Qual comando remove uma linha?", a:["remove()","reset()","focus()"], c:0, e:"remove() retira o elemento da tela."},
+  {q:"Nesta prática, os dados ficam salvos em banco?", a:["Sim","Não, ficam apenas na tela","Sim, no GitHub"], c:1, e:"Sem banco ou localStorage, os dados somem ao atualizar a página."}
+];
+
+const quiz = document.getElementById("quiz");
+const score = document.getElementById("score");
+const resetQuiz = document.getElementById("resetQuiz");
+let acertos = 0;
+let respondidas = 0;
+
+function montarQuiz() {
+  quiz.innerHTML = "";
+  acertos = 0;
+  respondidas = 0;
+  score.innerText = "0 / 10";
+
+  perguntas.forEach(function(pergunta, indice) {
+    const card = document.createElement("div");
+    card.className = "quiz-card";
+    card.innerHTML = `<p>${indice + 1}. ${pergunta.q}</p>`;
+
+    pergunta.a.forEach(function(opcao, posicao) {
+      const botao = document.createElement("button");
+      botao.type = "button";
+      botao.innerText = opcao;
+      botao.addEventListener("click", function() {
+        responder(card, botao, pergunta, posicao);
+      });
+      card.appendChild(botao);
+    });
+
+    const feedback = document.createElement("div");
+    feedback.className = "feedback";
+    card.appendChild(feedback);
+    quiz.appendChild(card);
+  });
+}
+
+function responder(card, botao, pergunta, posicao) {
+  if (card.dataset.respondida === "sim") return;
+
+  card.dataset.respondida = "sim";
+  respondidas++;
+
+  if (posicao === pergunta.c) {
+    botao.classList.add("correct");
+    acertos++;
+  } else {
+    botao.classList.add("wrong");
+    card.querySelectorAll("button")[pergunta.c].classList.add("correct");
+  }
+
+  card.querySelector(".feedback").innerText = pergunta.e;
+  score.innerText = `${acertos} / ${perguntas.length}`;
+}
+
+resetQuiz.addEventListener("click", montarQuiz);
+montarQuiz();
+</script>
 </body>
 </html>

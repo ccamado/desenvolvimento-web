@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entendendo o Código - Aula 10 | Desenvolvimento WEB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0a0e1a;--surface:#111827;--card:#1a2235;--border:#2a3a55;--accent:#34d399;--accent2:#38bdf8;--text:#e2e8f0;--muted:#94a3b8;--code:#07111f;--warn:#facc15}
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(circle at top left,rgba(52,211,153,.14),transparent 35%),radial-gradient(circle at bottom right,rgba(56,189,248,.13),transparent 35%),var(--bg);color:var(--text);font-family:Outfit,sans-serif;line-height:1.65}
+    .wrap{max-width:1080px;margin:0 auto;padding:28px 18px 64px}
+    nav{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap}
+    .btn,.nav-back{color:var(--text);text-decoration:none;border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:10px 14px;font-weight:700;display:inline-block}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#052e16;border:0}
+    .tag{font-family:"Space Mono",monospace;color:var(--accent);font-size:12px;letter-spacing:2px;text-transform:uppercase}
+    h1{font-size:clamp(2rem,5vw,3.25rem);line-height:1.05;margin:10px 0 12px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    section{background:rgba(26,34,53,.95);border:1px solid var(--border);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 18px 50px rgba(0,0,0,.18)}
+    h2{margin:0 0 12px}
+    h3{margin:18px 0 8px}
+    p{color:var(--muted)}
+    pre{background:var(--code);border:1px solid var(--border);border-radius:14px;padding:16px;overflow:auto;color:#dbeafe;font-family:"Space Mono",monospace;font-size:.82rem;line-height:1.55;white-space:pre-wrap}
+    code{font-family:"Space Mono",monospace;color:#bbf7d0}
+    .connection{background:rgba(250,204,21,.08);border:1px solid rgba(250,204,21,.28);border-radius:14px;padding:14px;margin:14px 0;color:#fde68a}
+    .map{width:100%;border-collapse:collapse;margin-top:12px}
+    .map th,.map td{border-bottom:1px solid var(--border);padding:12px;text-align:left;vertical-align:top}
+    .map th{background:#0f172a;color:#93c5fd}
+    .map td{color:#e5e7eb}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="aula10.html" class="nav-back">&larr; Voltar para Aula 10</a><span class="tag">Entendendo o codigo</span></nav>
+  <header>
+    <div class="tag">HTML + CSS + JS conectados</div>
+    <h1>Como o CRUD funciona por dentro</h1>
+    <p>O mesmo codigo da pratica, agora comentado para entender como cada parte conversa com as outras.</p>
+  </header>
+
+  <section>
+    <h2>Entenda o HTML</h2>
+    <p>O HTML cria os elementos que aparecem na tela: formulario, campos, botoes, tabela e mensagem inicial.</p>
+    <pre><code>&lt;!-- main e a area principal da aplicacao.
+     A classe "app" sera usada pelo CSS para centralizar e limitar a largura. --&gt;
+&lt;main class="app"&gt;
+
+  &lt;!-- section cria um bloco visual.
+       A classe "card" sera usada pelo CSS para deixar o bloco com aparencia de cartao. --&gt;
+  &lt;section class="card"&gt;
+
+    &lt;!-- header organiza titulo, etiqueta e explicacao da pratica. --&gt;
+    &lt;div class="header"&gt;
+      &lt;span class="tag"&gt;CRUD sem banco&lt;/span&gt;
+      &lt;h1&gt;Cadastro de Alunos&lt;/h1&gt;
+      &lt;p&gt;Cadastre, liste, altere e exclua alunos usando HTML, CSS e JavaScript.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Este formulario sera escutado pelo JavaScript.
+         Conexao com JS: document.getElementById("formAluno"). --&gt;
+    &lt;form id="formAluno" class="form"&gt;
+
+      &lt;!-- Cada input tem um id.
+           Conexao com JS: nome.value, turma.value e cidade.value pegam o que foi digitado. --&gt;
+      &lt;input id="nome" placeholder="Nome do aluno" required&gt;
+      &lt;input id="turma" placeholder="Turma" required&gt;
+      &lt;input id="cidade" placeholder="Cidade" required&gt;
+
+      &lt;!-- actions e uma classe para o CSS organizar os botoes lado a lado. --&gt;
+      &lt;div class="actions"&gt;
+
+        &lt;!-- Este botao envia o formulario.
+             Conexao com JS: btnSalvar muda de "Cadastrar" para "Salvar alteracao". --&gt;
+        &lt;button id="btnSalvar" type="submit"&gt;Cadastrar&lt;/button&gt;
+
+        &lt;!-- Comeca escondido com a classe hidden.
+             Conexao com CSS: .hidden { display: none; }
+             Conexao com JS: classList.remove("hidden") faz aparecer. --&gt;
+        &lt;button id="btnCancelar" type="button" class="secondary hidden"&gt;Cancelar alteração&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/section&gt;
+
+  &lt;section class="card"&gt;
+    &lt;h2&gt;Alunos cadastrados&lt;/h2&gt;
+
+    &lt;!-- A tabela mostra os alunos cadastrados. --&gt;
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Nome&lt;/th&gt;
+          &lt;th&gt;Turma&lt;/th&gt;
+          &lt;th&gt;Cidade&lt;/th&gt;
+          &lt;th&gt;Ações&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+
+      &lt;!-- Este tbody e o lugar onde o JavaScript vai colocar novas linhas.
+           Conexao com JS: listaAlunos.appendChild(linha). --&gt;
+      &lt;tbody id="listaAlunos"&gt;
+        &lt;tr class="empty-row"&gt;
+          &lt;td colspan="4"&gt;Nenhum aluno cadastrado ainda.&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/section&gt;
+&lt;/main&gt;</code></pre>
+    <div class="connection"><strong>Conexao principal:</strong> o HTML entrega os pontos de contato. O CSS usa as classes, como <code>card</code>, <code>form</code> e <code>hidden</code>. O JavaScript usa os ids, como <code>formAluno</code>, <code>nome</code> e <code>listaAlunos</code>.</div>
+  </section>
+
+  <section>
+    <h2>Entenda o CSS</h2>
+    <p>O CSS nao cadastra alunos. Ele deixa a pratica mais clara, organizada e agradavel de usar.</p>
+    <pre><code>/* Aplica a todos os elementos.
+   Ajuda padding e borda a nao aumentarem a largura alem do esperado. */
+* {
+  box-sizing: border-box;
+}
+
+/* Estiliza a pagina inteira: fundo, fonte, cor do texto e espacamento. */
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 24px;
+}
+
+/* Conexao com HTML: &lt;main class="app"&gt;.
+   Centraliza a aplicacao e limita a largura. */
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Conexao com HTML: &lt;section class="card"&gt;.
+   Cria a aparencia de cartao. */
+.card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+/* Conexao com HTML: &lt;span class="tag"&gt;.
+   Cria uma etiqueta visual para o tema da pratica. */
+.tag {
+  display: inline-block;
+  background: #0ea5e9;
+  color: #082f49;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+p {
+  color: #cbd5e1;
+}
+
+/* Conexao com HTML: &lt;form class="form"&gt;.
+   Organiza os campos em coluna com espaco entre eles. */
+.form {
+  display: grid;
+  gap: 12px;
+}
+
+/* Estilo dos campos de entrada. */
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #475569;
+  border-radius: 10px;
+  background: #0f172a;
+  color: #f8fafc;
+  font-size: 15px;
+}
+
+/* Quando o aluno clica no campo, aparece destaque azul. */
+input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+}
+
+/* Organiza os botoes do formulario. */
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Estilo base de todos os botoes. */
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 11px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #22c55e;
+  color: #052e16;
+}
+
+button:hover {
+  filter: brightness(1.08);
+}
+
+/* Botao cancelar, que existe no HTML. */
+button.secondary {
+  background: #64748b;
+  color: white;
+}
+
+/* Botoes criados pelo JavaScript dentro da tabela. */
+button.edit {
+  background: #facc15;
+  color: #422006;
+}
+
+button.delete {
+  background: #fb7185;
+  color: #450a0a;
+}
+
+/* Conexao com HTML e JS:
+   no HTML, o botao cancelar comeca com class="hidden";
+   no JS, classList.remove("hidden") faz ele aparecer. */
+.hidden {
+  display: none;
+}
+
+/* Aparencia da tabela. */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #334155;
+  text-align: left;
+}
+
+th {
+  background: #0f172a;
+  color: #93c5fd;
+}
+
+td {
+  color: #e5e7eb;
+}
+
+/* Linha que aparece quando ainda nao ha alunos cadastrados. */
+.empty-row td {
+  text-align: center;
+  color: #94a3b8;
+  padding: 20px;
+}
+
+/* Ultima coluna recebe botoes Alterar e Excluir. */
+td:last-child {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Ajuste para tela pequena. */
+@media (max-width: 600px) {
+  body {
+    padding: 12px;
+  }
+
+  th,
+  td {
+    font-size: 13px;
+    padding: 9px;
+  }
+}</code></pre>
+    <div class="connection"><strong>Conexao principal:</strong> CSS trabalha principalmente com classes. Quando o HTML tem <code>class="card"</code>, o CSS procura <code>.card</code>. Quando o JS cria <code>class="edit"</code>, o CSS aplica a cor amarela ao botao Alterar.</div>
+  </section>
+
+  <section>
+    <h2>Entenda o JS</h2>
+    <p>O JavaScript e a parte que faz a pagina reagir: cadastra, lista, altera, exclui e limpa o formulario.</p>
+    <pre><code>// Busca no HTML o formulario com id="formAluno".
+// Conexao com HTML: &lt;form id="formAluno" class="form"&gt;
+const form = document.getElementById("formAluno");
+
+// Busca os campos do formulario.
+// Cada constante guarda o elemento inteiro, nao apenas o texto digitado.
+const nome = document.getElementById("nome");
+const turma = document.getElementById("turma");
+const cidade = document.getElementById("cidade");
+
+// Busca a tabela onde as linhas de alunos serao colocadas.
+const listaAlunos = document.getElementById("listaAlunos");
+
+// Busca os botoes principais do formulario.
+const btnSalvar = document.getElementById("btnSalvar");
+const btnCancelar = document.getElementById("btnCancelar");
+
+// Guarda qual linha esta sendo editada.
+// null significa: nao estou editando nenhuma linha agora.
+let linhaEmEdicao = null;
+
+// O evento submit acontece quando o aluno clica em Cadastrar ou pressiona Enter.
+form.addEventListener("submit", function(evento) {
+  // Impede o formulario de recarregar a pagina.
+  evento.preventDefault();
+
+  // Se nao ha linha em edicao, o formulario cadastra um aluno novo.
+  if (linhaEmEdicao === null) {
+    cadastrarAluno();
+  } else {
+    // Se ha uma linha em edicao, o formulario salva a alteracao.
+    salvarAlteracao();
+  }
+
+  // Depois de cadastrar ou alterar, limpa os campos.
+  limparFormulario();
+});
+
+// Quando clicar em Cancelar alteracao, sai do modo edicao.
+btnCancelar.addEventListener("click", function() {
+  linhaEmEdicao = null;
+  limparFormulario();
+});
+
+function cadastrarAluno() {
+  // Remove a mensagem "Nenhum aluno cadastrado ainda".
+  removerMensagemVazia();
+
+  // Cria uma linha nova de tabela: &lt;tr&gt;.
+  const linha = document.createElement("tr");
+
+  // Preenche a linha com celulas e botoes.
+  // Conexao com CSS: class="edit" e class="delete" dao cores diferentes.
+  linha.innerHTML = `
+    &lt;td&gt;${nome.value}&lt;/td&gt;
+    &lt;td&gt;${turma.value}&lt;/td&gt;
+    &lt;td&gt;${cidade.value}&lt;/td&gt;
+    &lt;td&gt;
+      &lt;button class="edit" onclick="alterarAluno(this)"&gt;Alterar&lt;/button&gt;
+      &lt;button class="delete" onclick="excluirAluno(this)"&gt;Excluir&lt;/button&gt;
+    &lt;/td&gt;
+  `;
+
+  // Coloca a linha criada dentro do tbody id="listaAlunos".
+  listaAlunos.appendChild(linha);
+}
+
+function alterarAluno(botao) {
+  // this, enviado no onclick, e o botao clicado.
+  // parentElement sobe para o td; outro parentElement sobe para o tr.
+  linhaEmEdicao = botao.parentElement.parentElement;
+
+  // Pega o texto das celulas da tabela e coloca de volta nos inputs.
+  nome.value = linhaEmEdicao.children[0].innerText;
+  turma.value = linhaEmEdicao.children[1].innerText;
+  cidade.value = linhaEmEdicao.children[2].innerText;
+
+  // Muda o texto do botao principal.
+  btnSalvar.innerText = "Salvar alteração";
+
+  // Remove a classe hidden para mostrar o botao Cancelar.
+  btnCancelar.classList.remove("hidden");
+}
+
+function salvarAlteracao() {
+  // Atualiza a linha da tabela com os valores atuais dos inputs.
+  linhaEmEdicao.children[0].innerText = nome.value;
+  linhaEmEdicao.children[1].innerText = turma.value;
+  linhaEmEdicao.children[2].innerText = cidade.value;
+
+  // Sai do modo edicao.
+  linhaEmEdicao = null;
+}
+
+function excluirAluno(botao) {
+  // Encontra a linha do botao clicado.
+  const linha = botao.parentElement.parentElement;
+
+  // Remove a linha da tela.
+  linha.remove();
+
+  // Se a tabela ficou vazia, mostra a mensagem inicial de novo.
+  if (listaAlunos.children.length === 0) {
+    mostrarMensagemVazia();
+  }
+}
+
+function limparFormulario() {
+  // Limpa os campos do formulario.
+  form.reset();
+
+  // Volta o botao principal ao estado inicial.
+  btnSalvar.innerText = "Cadastrar";
+
+  // Esconde novamente o botao Cancelar.
+  btnCancelar.classList.add("hidden");
+}
+
+function removerMensagemVazia() {
+  // Procura a linha inicial de aviso.
+  const linhaVazia = document.querySelector(".empty-row");
+
+  // Se encontrou, remove.
+  if (linhaVazia !== null) {
+    linhaVazia.remove();
+  }
+}
+
+function mostrarMensagemVazia() {
+  // Recria a linha de aviso quando nao ha alunos na tabela.
+  listaAlunos.innerHTML = `
+    &lt;tr class="empty-row"&gt;
+      &lt;td colspan="4"&gt;Nenhum aluno cadastrado ainda.&lt;/td&gt;
+    &lt;/tr&gt;
+  `;
+}</code></pre>
+    <div class="connection"><strong>Conexao principal:</strong> o JavaScript usa ids para encontrar elementos, usa <code>value</code> para ler os campos, cria HTML novo com <code>innerHTML</code> e coloca esse HTML dentro da tabela com <code>appendChild</code>.</div>
+  </section>
+
+  <section>
+    <h2>Mapa CRUD da pratica</h2>
+    <table class="map">
+      <thead><tr><th>CRUD</th><th>Funcao no JS</th><th>O que acontece na tela</th></tr></thead>
+      <tbody>
+        <tr><td>Create</td><td><code>cadastrarAluno()</code></td><td>Cria uma nova linha com nome, turma, cidade e botoes.</td></tr>
+        <tr><td>Read</td><td><code>listaAlunos.appendChild(linha)</code></td><td>Mostra o aluno cadastrado dentro da tabela.</td></tr>
+        <tr><td>Update</td><td><code>alterarAluno()</code> e <code>salvarAlteracao()</code></td><td>Leva os dados para o formulario e depois atualiza a linha.</td></tr>
+        <tr><td>Delete</td><td><code>excluirAluno()</code></td><td>Remove a linha do aluno da tabela.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <nav><a class="btn" href="aula10.html">&larr; Voltar para Aula 10</a><a class="btn primary" href="aula11.html">Proxima aula &rarr;</a></nav>
+</div>
+</body>
+</html>
