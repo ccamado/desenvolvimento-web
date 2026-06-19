@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 11 - RAV Final | Desenvolvimento WEB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0a0e1a;--surface:#111827;--card:#1a2235;--border:#2a3a55;--accent:#818cf8;--accent2:#34d399;--text:#e2e8f0;--muted:#94a3b8}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Outfit,sans-serif;line-height:1.6}.wrap{max-width:960px;margin:0 auto;padding:28px 18px 64px}nav{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap}.btn,.nav-back{color:var(--text);text-decoration:none;border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:9px 14px;font-weight:700}.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#07111d;border:0}.tag{font-family:"Space Mono",monospace;color:var(--accent);font-size:12px;letter-spacing:2px;text-transform:uppercase}h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.05;margin:10px 0 12px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}section{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;margin:18px 0}h2{margin:0 0 12px}.check div{padding:9px 0;border-bottom:1px solid rgba(255,255,255,.08)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.card{background:rgba(255,255,255,.04);border:1px dashed var(--border);border-radius:14px;padding:14px}code{font-family:"Space Mono",monospace;color:#c4b5fd}.summary{border-left:4px solid var(--accent2)}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html" class="nav-back">&larr; Menu</a><span class="tag">RAV Final - 13 e 14/07/2026</span></nav>
+  <header>
+    <div class="tag">Fechamento do 2o bimestre</div>
+    <h1>Checklist final do projeto</h1>
+    <p>Corrigir pendencias, organizar evidencias e reforcar os erros mais comuns.</p>
+  </header>
+
+  <section>
+    <h2>Checklist do aluno</h2>
+    <div class="check">
+      <div>☐ Minha pasta tem os arquivos com nomes simples: <code>index.html</code>, <code>sobre.html</code>, etc.</div>
+      <div>☐ Meu formulario tem campos basicos e campos de escolha.</div>
+      <div>☐ Meu CSS deixa os campos legiveis e organizados.</div>
+      <div>☐ Meus links funcionam entre as paginas.</div>
+      <div>☐ Minha tabela mostra dados em linhas e colunas.</div>
+      <div>☐ Meu JavaScript mostra pelo menos uma mensagem na pagina.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Erros comuns para revisar</h2>
+    <div class="grid">
+      <div class="card"><strong>Arquivo errado</strong><br><code>sobre.html</code> e diferente de <code>Sobre.html</code>.</div>
+      <div class="card"><strong>Tag aberta</strong><br>Conferir se toda tag importante foi fechada.</div>
+      <div class="card"><strong>Radio sem grupo</strong><br>Radios do mesmo grupo precisam do mesmo <code>name</code>.</div>
+      <div class="card"><strong>JavaScript nao acha id</strong><br>O id usado no JS deve existir no HTML.</div>
+    </div>
+  </section>
+
+  <section class="summary">
+    <h2>Entrega final</h2>
+    <p>Mostrar o projeto rodando no navegador e explicar, em poucas frases, o que cada parte faz: formulario, CSS, links, tabela e JavaScript.</p>
+  </section>
+
+  <nav><a class="btn" href="aula10.html">&larr; Aula 10</a><a class="btn primary" href="index.html">Voltar ao Menu</a></nav>
+</div>
+</body>
+</html>

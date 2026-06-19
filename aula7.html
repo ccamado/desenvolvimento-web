@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 7 - Semantica e Tabelas HTML | Desenvolvimento WEB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0a0e1a;--surface:#111827;--card:#1a2235;--border:#2a3a55;--accent:#38bdf8;--accent2:#818cf8;--text:#e2e8f0;--muted:#94a3b8;--code:#0f172a;--ok:#34d399}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Outfit,sans-serif;line-height:1.6}.wrap{max-width:960px;margin:0 auto;padding:28px 18px 64px}
+    nav{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap}.nav-back,.btn{color:var(--text);text-decoration:none;border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:9px 14px;font-weight:700}.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#08111f;border:0}
+    .tag{font-family:"Space Mono",monospace;color:var(--accent);font-size:12px;letter-spacing:2px;text-transform:uppercase}h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.05;margin:10px 0 12px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}section{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;margin:18px 0}h2{margin:0 0 12px;font-size:1.35rem}h3{margin:12px 0 8px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.mini{background:rgba(255,255,255,.04);border:1px dashed var(--border);border-radius:14px;padding:14px}
+    pre{background:var(--code);border:1px solid var(--border);border-radius:14px;padding:16px;overflow:auto;font-family:"Space Mono",monospace;font-size:.88rem;color:#dbeafe}.summary{border-left:4px solid var(--ok);background:rgba(52,211,153,.08)}ul{padding-left:22px}.checklist div{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.08)}code{font-family:"Space Mono",monospace;color:#bfdbfe}.preview{background:#fff;color:#111827;border-radius:14px;padding:18px}.preview table{border-collapse:collapse;width:100%;font-size:.92rem}.preview th,.preview td{border:1px solid #cbd5e1;padding:8px;text-align:left}.preview th{background:#e0f2fe}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="index.html" class="nav-back">&larr; Menu</a><span class="tag">Semana 7 - 19/06/2026</span></nav>
+  <header>
+    <div class="tag">Desenvolvimento WEB - 2o Ano A</div>
+    <h1>Semantica e Tabelas HTML</h1>
+    <p>Organizar melhor a pagina e criar uma tabela para pre-visualizar os dados do formulario.</p>
+  </header>
+
+  <section>
+    <h2>Objetivo da aula</h2>
+    <div class="grid">
+      <div class="mini"><strong>Semantica</strong><br>Usar tags que explicam a funcao de cada parte da pagina.</div>
+      <div class="mini"><strong>Tabela</strong><br>Mostrar dados em linhas e colunas com <code>table</code>, <code>tr</code>, <code>th</code> e <code>td</code>.</div>
+      <div class="mini"><strong>Ponte com banco</strong><br>Entender que cada campo do formulario pode virar uma coluna.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tags semanticas essenciais</h2>
+    <pre>&lt;header&gt;Cabecalho da pagina&lt;/header&gt;
+&lt;nav&gt;Menu de navegacao&lt;/nav&gt;
+&lt;main&gt;Conteudo principal&lt;/main&gt;
+&lt;section&gt;Bloco de conteudo&lt;/section&gt;
+&lt;footer&gt;Rodape&lt;/footer&gt;</pre>
+    <p>Elas ajudam a deixar o projeto mais organizado e mais facil de entender.</p>
+  </section>
+
+  <section>
+    <h2>Tabela HTML</h2>
+    <pre>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Nome&lt;/th&gt;
+    &lt;th&gt;Turma&lt;/th&gt;
+    &lt;th&gt;Cidade&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Ana&lt;/td&gt;
+    &lt;td&gt;2A&lt;/td&gt;
+    &lt;td&gt;Campo Grande&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</pre>
+    <div class="preview">
+      <table>
+        <tr><th>Nome</th><th>Turma</th><th>Cidade</th></tr>
+        <tr><td>Ana</td><td>2A</td><td>Campo Grande</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="summary">
+    <h2>Resumo para o caderno</h2>
+    <ul>
+      <li>Semantica e usar tags com significado: <code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>footer</code>.</li>
+      <li>Tabela organiza dados em linhas e colunas.</li>
+      <li><code>th</code> e cabecalho; <code>td</code> e dado comum.</li>
+      <li>Campos do formulario podem virar colunas de uma tabela.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Entrega da aula</h2>
+    <div class="checklist">
+      <div>☐ Criar uma pagina com <code>header</code>, <code>main</code> e <code>footer</code>.</div>
+      <div>☐ Criar uma tabela com Nome, Turma e Cidade.</div>
+      <div>☐ Preencher pelo menos 3 linhas ficticias.</div>
+      <div>☐ Explicar no caderno a ligacao entre formulario, tabela e banco de dados.</div>
+    </div>
+  </section>
+
+  <nav><a class="btn" href="aula6c.html">&larr; Aula 6C</a><a class="btn primary" href="aula8.html">Proxima: Aula 8 &rarr;</a></nav>
+</div>
+</body>
+</html>

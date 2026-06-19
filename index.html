@@ -16,7 +16,7 @@
     .subtitle{font-size:1rem;color:var(--muted);font-weight:300}.subtitle strong{color:var(--text);font-weight:600}
     .progress-bar-wrap{max-width:700px;margin:32px auto 0;background:var(--surface);border-radius:99px;height:8px;overflow:hidden;border:1px solid var(--border)}
     .progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent3),var(--accent));border-radius:99px;animation:growBar 1.5s ease-out .3s forwards}
-    @keyframes growBar{to{width:50%}}
+    @keyframes growBar{to{width:100%}}
     .progress-label{text-align:center;font-size:12px;color:var(--muted);margin-top:8px;font-family:'Space Mono',monospace}
     main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:48px 24px 80px}
     .bimestre-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:24px}
@@ -38,7 +38,7 @@
   <h1>Desenvolvimento WEB</h1>
   <p class="subtitle">2º Ano A &nbsp;·&nbsp; <strong>2º Bimestre 2026</strong> &nbsp;·&nbsp; Prof. <strong>Claudio Amado</strong></p>
   <div class="progress-bar-wrap"><div class="progress-bar"></div></div>
-  <p class="progress-label">6 de 12 semanas &nbsp;—&nbsp; 50% concluído</p>
+  <p class="progress-label">11 de 11 etapas &nbsp;—&nbsp; material do bimestre preparado</p>
 </header>
 <main>
   <p class="bimestre-label">📚 Navegue pelas aulas do bimestre</p>
@@ -49,13 +49,12 @@
     <a href="aula4a.html" class="card done"><div class="card-num">04</div><div class="card-week">Semana 4 — 29/05</div><h2>CSS para Formulários</h2><p>Fontes, cores, espaçamento, fundo, borda e card simples. Teoria + duas práticas de laboratório.</p><div><span class="badge done-badge">✓ Concluído</span><span class="badge lab-badge">🧪 Lab</span></div></a>
     <div class="card done"><div class="card-num">05</div><div class="card-week">Semana 5 — 05/06</div><h2>Não letivo / Reforço</h2><p>Sem aula. Retomada e correção de formulários pendentes quando necessário.</p><span class="badge done-badge">✓ Registro</span></div>
 
-    <div class="card active">
-      <div class="active-glow"></div>
+    <div class="card done">
       <div class="card-num">06</div>
-      <div class="card-week">🔴 AO VIVO — Semana 6 — 12/06</div>
+      <div class="card-week">Semana 6 — 12/06</div>
       <h2>Links e Navegação: criando duas páginas</h2>
-      <p>Hoje teremos três aulas: conceito de link, criação de duas páginas HTML e menu simples entre Home e Sobre.</p>
-      <div style="margin-bottom:16px"><span class="badge active-badge">▶ Aula de Hoje</span><span class="badge lab-badge">🧪 Lab</span></div>
+      <p>Conceito de link, criação de duas páginas HTML e menu simples entre Home e Sobre.</p>
+      <div style="margin-bottom:16px"><span class="badge done-badge">✓ Preparado</span><span class="badge lab-badge">🧪 Lab</span></div>
       <div class="sub-cards">
         <a href="aula6a.html" class="sub-card"><span class="sub-icon">🔗</span><div class="sub-info"><div class="sub-title">Aula 6A — Links e Navegação</div><div class="sub-desc">Teoria leve · tag a · href · resumo para caderno</div></div><span class="sub-arrow">→</span></a>
         <a href="aula6b.html" class="sub-card"><span class="sub-icon">🧪</span><div class="sub-info"><div class="sub-title">Aula 6B — Lab 1: Duas páginas</div><div class="sub-desc">index.html + sobre.html · passo a passo</div></div><span class="sub-arrow">→</span></a>
@@ -63,11 +62,11 @@
       </div>
     </div>
 
-    <div class="card soon-card"><div class="card-num">07</div><div class="card-week">Semana 7 — 19/06</div><h2>Semântica + Tabelas HTML</h2><p>Organização semântica e pré-visualização de dados em tabela.</p><span class="badge soon-badge">🔒 Em breve</span></div>
-    <div class="card soon-card"><div class="card-num">08</div><div class="card-week">Semana 8 — 26/06</div><h2>Revisão + Atividade Avaliativa</h2><p>Ficha do aluno completa com types, required, radio, select e checkbox.</p><span class="badge soon-badge">🔒 Em breve</span></div>
-    <div class="card soon-card"><div class="card-num">09</div><div class="card-week">Semana 9 — 03/07</div><h2>JavaScript Iniciante</h2><p>Evento submit, document/DOM. Ler value e mostrar mensagem na tela.</p><span class="badge soon-badge">🔒 Em breve</span></div>
-    <div class="card soon-card"><div class="card-num">10</div><div class="card-week">Semana 10 — 10/07 (RAV)</div><h2>Recuperação + CRUD</h2><p>Retomada do formulário completo e conceito de cadastrar/listar.</p><span class="badge soon-badge">🔒 Em breve</span></div>
-    <div class="card soon-card"><div class="card-num">11</div><div class="card-week">Semana 11 — 13 e 14/07 (RAV)</div><h2>Recuperação Final</h2><p>Correção de atividades, checklist do form e reforço de erros comuns.</p><span class="badge soon-badge">🔒 Em breve</span></div>
+    <a href="aula7.html" class="card active"><div class="active-glow"></div><div class="card-num">07</div><div class="card-week">Semana 7 — 19/06</div><h2>Semântica + Tabelas HTML</h2><p>Organização semântica e pré-visualização de dados em tabela.</p><div><span class="badge active-badge">▶ Aula de Hoje</span></div></a>
+    <a href="aula8.html" class="card done"><div class="card-num">08</div><div class="card-week">Semana 8 — 26/06</div><h2>Revisão + Atividade Avaliativa</h2><p>Ficha do aluno completa com types, required, radio, select e checkbox.</p><span class="badge done-badge">✓ Preparado</span></a>
+    <a href="aula9.html" class="card done"><div class="card-num">09</div><div class="card-week">Semana 9 — 03/07</div><h2>JavaScript Iniciante</h2><p>Evento submit, document/DOM. Ler value e mostrar mensagem na tela.</p><span class="badge done-badge">✓ Preparado</span></a>
+    <a href="aula10.html" class="card done"><div class="card-num">10</div><div class="card-week">Semana 10 — 10/07 (RAV)</div><h2>Recuperação + CRUD</h2><p>Retomada do formulário completo e conceito de cadastrar/listar.</p><span class="badge done-badge">✓ Preparado</span></a>
+    <a href="aula11.html" class="card done"><div class="card-num">11</div><div class="card-week">Semana 11 — 13 e 14/07 (RAV)</div><h2>Recuperação Final</h2><p>Correção de atividades, checklist do form e reforço de erros comuns.</p><span class="badge done-badge">✓ Preparado</span></a>
   </div>
 </main>
 <footer><p>Desenvolvimento WEB &nbsp;·&nbsp; 2º Ano A &nbsp;·&nbsp; Prof. <span>Claudio Amado</span> &nbsp;·&nbsp; 2026</p><p style="margin-top:6px">Centro de Educação Profissional Ezequiel Ferreira Lima · Campo Grande/MS</p></footer>
